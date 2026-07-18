@@ -1,13 +1,37 @@
+console.log("Service Worker gestartet");
+
+
 chrome.runtime.onMessage.addListener((message) => {
 
-    if (message.action === "saveTabs") {
 
-        chrome.tabs.query({}, (tabs) => {
+    if(message.action === "saveTabs"){
 
-            console.log(tabs);
+
+        chrome.tabs.query({}, (tabs)=>{
+
+
+            console.log(
+                "Tabs gefunden:",
+                tabs.length
+            );
+
+
+            tabs.forEach(tab=>{
+
+
+                console.log({
+                    title: tab.title,
+                    url: tab.url
+                });
+
+
+            });
+
 
         });
 
+
     }
+
 
 });
