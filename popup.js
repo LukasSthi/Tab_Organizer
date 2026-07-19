@@ -17,87 +17,49 @@ let activeCategory = null;
 // ======================================================
 
 const saveButton =
-    document.getElementById(
-        "saveTabs"
-    );
-
+    document.getElementById("saveTabs");
 
 const saveSettingsButton =
-    document.getElementById(
-        "saveTabsSettings"
-    );
+    document.getElementById("saveTabsSettings");
 
+const searchRow =
+    document.getElementById("searchRow");
 
 const searchInput =
-    document.getElementById(
-        "search"
-    );
-
+    document.getElementById("search");
 
 const statusElement =
-    document.getElementById(
-        "status"
-    );
-
+    document.getElementById("status");
 
 const categoryGrid =
-    document.getElementById(
-        "categoryGrid"
-    );
-
+    document.getElementById("categoryGrid");
 
 const recentTabs =
-    document.getElementById(
-        "recentTabs"
-    );
-
+    document.getElementById("recentTabs");
 
 const importantTabs =
-    document.getElementById(
-        "importantTabs"
-    );
-
+    document.getElementById("importantTabs");
 
 const allTabsContainer =
-    document.getElementById(
-        "allTabs"
-    );
-
+    document.getElementById("allTabs");
 
 const starredTabs =
-    document.getElementById(
-        "starredTabs"
-    );
-
+    document.getElementById("starredTabs");
 
 const allCount =
-    document.getElementById(
-        "allCount"
-    );
-
+    document.getElementById("allCount");
 
 const starredCount =
-    document.getElementById(
-        "starredCount"
-    );
-
+    document.getElementById("starredCount");
 
 const retentionDaysInput =
-    document.getElementById(
-        "retentionDays"
-    );
-
+    document.getElementById("retentionDays");
 
 const saveRetentionSettingsButton =
-    document.getElementById(
-        "saveRetentionSettings"
-    );
-
+    document.getElementById("saveRetentionSettings");
 
 const settingsStatus =
-    document.getElementById(
-        "settingsStatus"
-    );
+    document.getElementById("settingsStatus");
 
 
 // ======================================================
@@ -105,125 +67,65 @@ const settingsStatus =
 // ======================================================
 
 const categoryIcons = {
-
     Development: "⌘",
-
     Education: "◈",
-
     Entertainment: "▷",
-
     Shopping: "◇",
-
     Uncategorized: "□"
-
 };
 
 
 // ======================================================
-// CATEGORY LOGIC
+// AUTOMATISCHE KATEGORISIERUNG
 // ======================================================
 
 function getCategory(domain) {
 
     const normalizedDomain =
-        (domain || "")
-            .toLowerCase();
+        (domain || "").toLowerCase();
 
 
     if (
-        normalizedDomain.includes(
-            "github.com"
-        ) ||
-
-        normalizedDomain.includes(
-            "stackoverflow.com"
-        ) ||
-
-        normalizedDomain.includes(
-            "developer.mozilla.org"
-        ) ||
-
-        normalizedDomain.includes(
-            "npmjs.com"
-        )
+        normalizedDomain.includes("github.com") ||
+        normalizedDomain.includes("stackoverflow.com") ||
+        normalizedDomain.includes("developer.mozilla.org") ||
+        normalizedDomain.includes("npmjs.com")
     ) {
-
         return "Development";
-
     }
 
 
     if (
-        normalizedDomain.includes(
-            "moodle"
-        ) ||
-
-        normalizedDomain.includes(
-            "wikipedia.org"
-        ) ||
-
-        normalizedDomain.includes(
-            "coursera.org"
-        ) ||
-
-        normalizedDomain.includes(
-            "udemy.com"
-        ) ||
-
-        normalizedDomain.includes(
-            "edx.org"
-        )
+        normalizedDomain.includes("moodle") ||
+        normalizedDomain.includes("wikipedia.org") ||
+        normalizedDomain.includes("coursera.org") ||
+        normalizedDomain.includes("udemy.com") ||
+        normalizedDomain.includes("edx.org")
     ) {
-
         return "Education";
-
     }
 
 
     if (
-        normalizedDomain.includes(
-            "youtube.com"
-        ) ||
-
-        normalizedDomain.includes(
-            "netflix.com"
-        ) ||
-
-        normalizedDomain.includes(
-            "spotify.com"
-        ) ||
-
-        normalizedDomain.includes(
-            "twitch.tv"
-        )
+        normalizedDomain.includes("youtube.com") ||
+        normalizedDomain.includes("netflix.com") ||
+        normalizedDomain.includes("spotify.com") ||
+        normalizedDomain.includes("twitch.tv")
     ) {
-
         return "Entertainment";
-
     }
 
 
     if (
-        normalizedDomain.includes(
-            "amazon."
-        ) ||
-
-        normalizedDomain.includes(
-            "ebay."
-        ) ||
-
-        normalizedDomain.includes(
-            "zalando."
-        )
+        normalizedDomain.includes("amazon.") ||
+        normalizedDomain.includes("ebay.") ||
+        normalizedDomain.includes("zalando.")
     ) {
-
         return "Shopping";
-
     }
 
 
     return "Uncategorized";
-
 }
 
 
@@ -235,9 +137,7 @@ function getDomain(url) {
 
     try {
 
-        return new URL(
-            url
-        ).hostname;
+        return new URL(url).hostname;
 
     } catch {
 
@@ -249,34 +149,21 @@ function getDomain(url) {
 
 
 // ======================================================
-// GÜLTIGE URL
+// URL PRÜFEN
 // ======================================================
 
 function isValidTabUrl(url) {
 
     if (!url) {
-
         return false;
-
     }
 
 
     return !(
-        url.startsWith(
-            "chrome://"
-        ) ||
-
-        url.startsWith(
-            "chrome-extension://"
-        ) ||
-
-        url.startsWith(
-            "edge://"
-        ) ||
-
-        url.startsWith(
-            "about:"
-        )
+        url.startsWith("chrome://") ||
+        url.startsWith("chrome-extension://") ||
+        url.startsWith("edge://") ||
+        url.startsWith("about:")
     );
 
 }
@@ -296,14 +183,12 @@ function loadTabs() {
 
         (result) => {
 
-
             allTabs =
                 result.savedTabs || [];
 
 
             retentionDaysInput.value =
-                result.retentionDays ||
-                3;
+                result.retentionDays || 3;
 
 
             renderEverything();
@@ -315,7 +200,7 @@ function loadTabs() {
 
 
 // ======================================================
-// MANUELL SPEICHERN
+// TABS MANUELL SPEICHERN
 // ======================================================
 
 function saveCurrentTabs() {
@@ -328,9 +213,7 @@ function saveCurrentTabs() {
         true;
 
 
-    if (
-        saveSettingsButton
-    ) {
+    if (saveSettingsButton) {
 
         saveSettingsButton.disabled =
             true;
@@ -340,16 +223,13 @@ function saveCurrentTabs() {
 
     chrome.tabs.query(
         {
-            currentWindow:
-                true
+            currentWindow: true
         },
 
         (openTabs) => {
 
 
-            if (
-                chrome.runtime.lastError
-            ) {
+            if (chrome.runtime.lastError) {
 
                 console.error(
                     chrome.runtime.lastError
@@ -374,38 +254,32 @@ function saveCurrentTabs() {
                 (result) => {
 
 
-                    // Wichtig:
-                    // Bestehende Tabs komplett behalten
+                    // Bereits gespeicherte Tabs
+                    // bleiben vollständig erhalten.
 
                     const existingTabs =
                         result.savedTabs || [];
 
 
-                    // Neue Liste startet mit ALLEN
-                    // bisher gespeicherten Tabs
-
                     const updatedTabs =
                         [...existingTabs];
 
 
-                    // Bereits gespeicherte URLs
+                    // Alle bereits gespeicherten URLs
 
                     const existingUrls =
                         new Set(
                             existingTabs.map(
-                                tab =>
-                                    tab.url
+                                tab => tab.url
                             )
                         );
 
 
                     const now =
-                        new Date()
-                            .toISOString();
+                        new Date().toISOString();
 
 
-                    let newTabsCount =
-                        0;
+                    let newTabsCount = 0;
 
 
                     openTabs.forEach(
@@ -417,122 +291,149 @@ function saveCurrentTabs() {
                                     tab.url
                                 )
                             ) {
-
                                 return;
-
                             }
 
 
-                            // Bereits gespeichert?
-                            // Dann NICHT verändern
-                            // und NICHT erneut hinzufügen.
+                            // Bereits gespeicherte URL:
+                            // nichts tun.
 
-                            if (
-                                existingUrls.has(
-                                    tab.url
-                                )
-                            ) {
-
-                                return;
-
-                            }
+                            const existingIndex =
+    updatedTabs.findIndex(
+        savedTab =>
+            savedTab.url === tab.url
+    );
 
 
-                            const domain =
-                                getDomain(
-                                    tab.url
-                                );
+const domain =
+    getDomain(
+        tab.url
+    );
 
+
+// Bereits gespeicherter Tab:
+// Daten aktualisieren,
+// aber createdAt und starred behalten.
+
+if (
+    existingIndex !== -1
+) {
+
+    const existingTab =
+        updatedTabs[
+            existingIndex
+        ];
+
+
+    updatedTabs[
+        existingIndex
+    ] = {
+
+        ...existingTab,
+
+        title:
+            tab.title ||
+            existingTab.title,
+
+        domain:
+            domain,
+
+        favicon:
+            tab.favIconUrl ||
+            existingTab.favicon,
+
+        category:
+            getCategory(
+                domain
+            ),
+
+        starred:
+            existingTab.starred === true,
+
+        createdAt:
+            existingTab.createdAt,
+
+        lastOpened:
+            now,
+
+        openCount:
+            (
+                existingTab.openCount ||
+                0
+            ) + 1
+
+    };
+
+
+    return;
+
+}
 
                             const newTab = {
 
-                                id:
-                                    crypto.randomUUID(),
+    id:
+        crypto.randomUUID(),
+
+    title:
+        tab.title ||
+        "Untitled Tab",
+
+    url:
+        tab.url,
+
+    domain:
+        domain,
+
+    favicon:
+        tab.favIconUrl ||
+        null,
+
+    category:
+        getCategory(
+            domain
+        ),
+
+    tags:
+        [],
+
+    workspace:
+        null,
+
+    starred:
+        false,
+
+    createdAt:
+        now,
+
+    lastOpened:
+        now,
+
+    openCount:
+        1,
+
+    keywords:
+        []
+
+};
 
 
-                                title:
-
-                                    tab.title ||
-
-                                    "Untitled Tab",
+updatedTabs.push(
+    newTab
+);
 
 
-                                url:
-                                    tab.url,
+existingUrls.add(
+    tab.url
+);
 
 
-                                domain:
-                                    domain,
-
-
-                                favicon:
-
-                                    tab.favIconUrl ||
-
-                                    null,
-
-
-                                category:
-
-                                    getCategory(
-                                        domain
-                                    ),
-
-
-                                tags:
-                                    [],
-
-
-                                workspace:
-                                    null,
-
-
-                                starred:
-                                    false,
-
-
-                                // Zeitpunkt,
-                                // ab dem die Löschfrist zählt
-
-                                createdAt:
-                                    now,
-
-
-                                lastOpened:
-                                    now,
-
-
-                                openCount:
-                                    1,
-
-
-                                keywords:
-                                    []
-
-                            };
-
-
-                            updatedTabs.push(
-                                newTab
-                            );
-
-
-                            // Verhindert Duplikate,
-                            // falls dieselbe URL mehrfach
-                            // im Fenster geöffnet ist.
-
-                            existingUrls.add(
-                                tab.url
-                            );
-
-
-                            newTabsCount++;
+newTabsCount++;
 
                         }
                     );
 
 
-                    // Neueste Tabs zuerst
+                    // Neueste zuerst
 
                     updatedTabs.sort(
                         (a, b) =>
@@ -557,6 +458,8 @@ function saveCurrentTabs() {
 
                     renderEverything();
 
+
+                    // In Storage speichern
 
                     chrome.storage.local.set(
                         {
@@ -583,8 +486,7 @@ function saveCurrentTabs() {
 
 
                             if (
-                                newTabsCount ===
-                                0
+                                newTabsCount === 0
                             ) {
 
                                 statusElement.textContent =
@@ -593,8 +495,7 @@ function saveCurrentTabs() {
                             }
 
                             else if (
-                                newTabsCount ===
-                                1
+                                newTabsCount === 1
                             ) {
 
                                 statusElement.textContent =
@@ -634,7 +535,7 @@ function saveCurrentTabs() {
 
 
 // ======================================================
-// BUTTONS AKTIVIEREN
+// SAVE BUTTONS
 // ======================================================
 
 function enableSaveButtons() {
@@ -643,9 +544,7 @@ function enableSaveButtons() {
         false;
 
 
-    if (
-        saveSettingsButton
-    ) {
+    if (saveSettingsButton) {
 
         saveSettingsButton.disabled =
             false;
@@ -656,28 +555,7 @@ function enableSaveButtons() {
 
 
 // ======================================================
-// RETENTION SETTINGS LADEN
-// ======================================================
-
-function loadRetentionSettings() {
-
-    chrome.storage.local.get(
-        ["retentionDays"],
-
-        (result) => {
-
-            retentionDaysInput.value =
-                result.retentionDays ||
-                3;
-
-        }
-    );
-
-}
-
-
-// ======================================================
-// RETENTION SETTINGS SPEICHERN
+// RETENTION SETTINGS
 // ======================================================
 
 function saveRetentionSettings() {
@@ -688,28 +566,18 @@ function saveRetentionSettings() {
         );
 
 
-    // Mindestens 1 Tag
-
     if (
-        !Number.isFinite(
-            days
-        ) ||
-
+        !Number.isFinite(days) ||
         days < 1
     ) {
 
-        days =
-            1;
+        days = 1;
 
     }
 
 
-    // Nur ganze Tage
-
     days =
-        Math.floor(
-            days
-        );
+        Math.floor(days);
 
 
     retentionDaysInput.value =
@@ -732,7 +600,6 @@ function saveRetentionSettings() {
                 settingsStatus.textContent =
                     "Settings could not be saved.";
 
-
                 return;
 
             }
@@ -743,7 +610,7 @@ function saveRetentionSettings() {
 
 
             // Direkt prüfen,
-            // ob bereits Tabs zu alt sind
+            // ob bereits alte Tabs entfernt werden müssen.
 
             chrome.runtime.sendMessage(
                 {
@@ -752,9 +619,6 @@ function saveRetentionSettings() {
                 },
 
                 () => {
-
-
-                    // Danach Daten neu laden
 
                     loadTabs();
 
@@ -780,7 +644,7 @@ function saveRetentionSettings() {
 
 
 // ======================================================
-// STAR
+// STAR / IMPORTANT
 // ======================================================
 
 function toggleStar(tabId) {
@@ -794,9 +658,7 @@ function toggleStar(tabId) {
 
 
     if (!tab) {
-
         return;
-
     }
 
 
@@ -804,15 +666,7 @@ function toggleStar(tabId) {
         !tab.starred;
 
 
-    renderEverything();
-
-
-    chrome.storage.local.set(
-        {
-            savedTabs:
-                allTabs
-        }
-    );
+    saveTabsToStorage();
 
 }
 
@@ -831,6 +685,19 @@ function deleteSavedTab(tabId) {
         );
 
 
+    saveTabsToStorage();
+
+}
+
+
+// ======================================================
+// TABS IN STORAGE SPEICHERN
+// ======================================================
+
+function saveTabsToStorage() {
+
+    // UI sofort aktualisieren
+
     renderEverything();
 
 
@@ -838,6 +705,20 @@ function deleteSavedTab(tabId) {
         {
             savedTabs:
                 allTabs
+        },
+
+        () => {
+
+            if (
+                chrome.runtime.lastError
+            ) {
+
+                console.error(
+                    chrome.runtime.lastError
+                );
+
+            }
+
         }
     );
 
@@ -845,7 +726,7 @@ function deleteSavedTab(tabId) {
 
 
 // ======================================================
-// VIEW
+// VIEW WECHSELN
 // ======================================================
 
 function switchView(view) {
@@ -854,9 +735,11 @@ function switchView(view) {
         view;
 
 
+    // Kategorie-Filter löschen,
+    // wenn All Tabs verlassen wird.
+
     if (
-        view !==
-        "all"
+        view !== "all"
     ) {
 
         activeCategory =
@@ -864,6 +747,39 @@ function switchView(view) {
 
     }
 
+
+    // ==================================================
+    // SEARCH SICHTBARKEIT
+    // ==================================================
+
+    if (
+        view === "all" ||
+        view === "starred"
+    ) {
+
+        searchRow.classList.remove(
+            "hidden"
+        );
+
+    } else {
+
+        searchRow.classList.add(
+            "hidden"
+        );
+
+
+        // Suche zurücksetzen,
+        // wenn Home oder Settings geöffnet wird.
+
+        searchInput.value =
+            "";
+
+    }
+
+
+    // ==================================================
+    // VIEW ANZEIGEN
+    // ==================================================
 
     document
         .querySelectorAll(
@@ -882,14 +798,11 @@ function switchView(view) {
 
     const targetView =
         document.getElementById(
-            view +
-            "View"
+            view + "View"
         );
 
 
-    if (
-        targetView
-    ) {
+    if (targetView) {
 
         targetView.classList.add(
             "active"
@@ -897,6 +810,10 @@ function switchView(view) {
 
     }
 
+
+    // ==================================================
+    // NAVIGATION
+    // ==================================================
 
     document
         .querySelectorAll(
@@ -907,7 +824,6 @@ function switchView(view) {
 
                 button.classList.toggle(
                     "active",
-
                     button.dataset.view ===
                         view
                 );
@@ -934,7 +850,7 @@ function getFilteredTabs() {
 
 
     return allTabs.filter(
-        tab => {
+        (tab) => {
 
 
             const matchesCategory =
@@ -1000,9 +916,7 @@ function getRelativeTime(
 ) {
 
     if (!dateString) {
-
         return "";
-
     }
 
 
@@ -1020,7 +934,6 @@ function getRelativeTime(
     const minutes =
         Math.max(
             0,
-
             Math.floor(
                 difference /
                 60000
@@ -1029,8 +942,7 @@ function getRelativeTime(
 
 
     if (
-        minutes <
-        1
+        minutes < 1
     ) {
 
         return "now";
@@ -1039,8 +951,7 @@ function getRelativeTime(
 
 
     if (
-        minutes <
-        60
+        minutes < 60
     ) {
 
         return `${minutes}m ago`;
@@ -1056,8 +967,7 @@ function getRelativeTime(
 
 
     if (
-        hours <
-        24
+        hours < 24
     ) {
 
         return `${hours}h ago`;
@@ -1096,7 +1006,9 @@ function createTabCard(
         "tab-card";
 
 
-    // Favicon
+    // ==================================================
+    // FAVICON
+    // ==================================================
 
     const favicon =
         document.createElement(
@@ -1108,9 +1020,7 @@ function createTabCard(
         "favicon";
 
 
-    if (
-        tab.favicon
-    ) {
+    if (tab.favicon) {
 
         const image =
             document.createElement(
@@ -1130,9 +1040,7 @@ function createTabCard(
             image
         );
 
-    }
-
-    else {
+    } else {
 
         favicon.textContent =
             "□";
@@ -1140,7 +1048,9 @@ function createTabCard(
     }
 
 
-    // Info
+    // ==================================================
+    // TAB INFO
+    // ==================================================
 
     const info =
         document.createElement(
@@ -1193,7 +1103,9 @@ function createTabCard(
     );
 
 
-    // Actions
+    // ==================================================
+    // ACTIONS
+    // ==================================================
 
     const actions =
         document.createElement(
@@ -1205,9 +1117,9 @@ function createTabCard(
         "tab-actions";
 
 
-    if (
-        showTime
-    ) {
+    // Zeit
+
+    if (showTime) {
 
         const time =
             document.createElement(
@@ -1233,7 +1145,9 @@ function createTabCard(
     }
 
 
-    // Star
+    // ==================================================
+    // STAR
+    // ==================================================
 
     const starButton =
         document.createElement(
@@ -1262,7 +1176,7 @@ function createTabCard(
     starButton.addEventListener(
         "click",
 
-        event => {
+        (event) => {
 
             event.preventDefault();
 
@@ -1277,7 +1191,9 @@ function createTabCard(
     );
 
 
-    // Delete
+    // ==================================================
+    // DELETE
+    // ==================================================
 
     const deleteButton =
         document.createElement(
@@ -1300,7 +1216,7 @@ function createTabCard(
     deleteButton.addEventListener(
         "click",
 
-        event => {
+        (event) => {
 
             event.preventDefault();
 
@@ -1325,19 +1241,17 @@ function createTabCard(
     );
 
 
-    // Open Tab
+    // ==================================================
+    // TAB ÖFFNEN
+    // ==================================================
 
     card.addEventListener(
         "click",
 
         () => {
 
-            if (
-                !tab.url
-            ) {
-
+            if (!tab.url) {
                 return;
-
             }
 
 
@@ -1351,6 +1265,10 @@ function createTabCard(
         }
     );
 
+
+    // ==================================================
+    // CARD ZUSAMMENSETZEN
+    // ==================================================
 
     card.appendChild(
         favicon
@@ -1388,8 +1306,7 @@ function renderTabList(
 
 
     if (
-        tabs.length ===
-        0
+        tabs.length === 0
     ) {
 
         const empty =
@@ -1417,7 +1334,7 @@ function renderTabList(
 
 
     tabs.forEach(
-        tab => {
+        (tab) => {
 
             container.appendChild(
                 createTabCard(
@@ -1447,7 +1364,7 @@ function renderCategories() {
 
 
     allTabs.forEach(
-        tab => {
+        (tab) => {
 
             const category =
                 tab.category ||
@@ -1471,8 +1388,7 @@ function renderCategories() {
 
 
     if (
-        entries.length ===
-        0
+        entries.length === 0
     ) {
 
         const empty =
@@ -1502,8 +1418,7 @@ function renderCategories() {
     entries
         .sort(
             (a, b) =>
-                b[1] -
-                a[1]
+                b[1] - a[1]
         )
         .slice(
             0,
@@ -1511,6 +1426,7 @@ function renderCategories() {
         )
         .forEach(
             ([category, count]) => {
+
 
                 const card =
                     document.createElement(
@@ -1587,10 +1503,14 @@ function renderEverything() {
         getFilteredTabs();
 
 
+    // Categories
+
     renderCategories();
 
 
-    // Recent
+    // ==================================================
+    // RECENT
+    // ==================================================
 
     const recent =
         [...allTabs]
@@ -1623,7 +1543,9 @@ function renderEverything() {
     );
 
 
-    // Important
+    // ==================================================
+    // IMPORTANT
+    // ==================================================
 
     const important =
         allTabs
@@ -1646,7 +1568,9 @@ function renderEverything() {
     );
 
 
-    // All Tabs
+    // ==================================================
+    // ALL TABS
+    // ==================================================
 
     renderTabList(
         allTabsContainer,
@@ -1660,7 +1584,9 @@ function renderEverything() {
         filteredTabs.length;
 
 
-    // Starred
+    // ==================================================
+    // STARRED
+    // ==================================================
 
     const starred =
         filteredTabs.filter(
@@ -1694,9 +1620,7 @@ saveButton.addEventListener(
 );
 
 
-if (
-    saveSettingsButton
-) {
+if (saveSettingsButton) {
 
     saveSettingsButton.addEventListener(
         "click",
@@ -1723,14 +1647,16 @@ searchInput.addEventListener(
 );
 
 
-// Navigation
+// ======================================================
+// NAVIGATION
+// ======================================================
 
 document
     .querySelectorAll(
         ".nav-item"
     )
     .forEach(
-        button => {
+        (button) => {
 
             button.addEventListener(
                 "click",
@@ -1752,14 +1678,16 @@ document
     );
 
 
-// See All
+// ======================================================
+// SEE ALL
+// ======================================================
 
 document
     .querySelectorAll(
         ".see-all"
     )
     .forEach(
-        button => {
+        (button) => {
 
             button.addEventListener(
                 "click",
@@ -1786,9 +1714,6 @@ document
 // START
 // ======================================================
 
-// Bei jedem Öffnen des Popups einmal prüfen,
-// ob Tabs abgelaufen sind.
-
 chrome.runtime.sendMessage(
     {
         action:
@@ -1801,6 +1726,3 @@ chrome.runtime.sendMessage(
 
     }
 );
-
-
-loadRetentionSettings();

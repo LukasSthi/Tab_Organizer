@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-
 <html lang="de">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -17,15 +15,11 @@
         rel="stylesheet"
         href="popup.css"
     >
-
 </head>
-
 
 <body>
 
-
 <div class="app">
-
 
     <!-- ============================= -->
     <!-- HEADER -->
@@ -33,9 +27,7 @@
 
     <header class="header">
 
-
         <div class="brand">
-
             <span class="brand-icon">
                 ▣
             </span>
@@ -43,23 +35,17 @@
             <span class="brand-name">
                 TabBuddy
             </span>
-
         </div>
-
 
         <button
             id="saveTabs"
             class="save-button"
             title="Aktuelle Tabs speichern"
         >
-
             Save Tabs
-
         </button>
 
-
     </header>
-
 
 
     <!-- ============================= -->
@@ -69,11 +55,15 @@
     <main class="content">
 
 
+        <!-- ============================= -->
         <!-- SEARCH -->
+        <!-- Nur bei All Tabs + Starred -->
+        <!-- ============================= -->
 
-
-        <div class="search-row">
-
+        <div
+            id="searchRow"
+            class="search-row hidden"
+        >
 
             <div class="search-box">
 
@@ -81,36 +71,23 @@
                     ⌕
                 </span>
 
-
                 <input
                     id="search"
                     type="text"
                     placeholder="Search your tabs..."
                 >
 
-
             </div>
-
-
-            <button
-                class="filter-button"
-                title="Filter"
-            >
-
-                ☷
-
-            </button>
-
 
         </div>
 
 
+        <!-- STATUS -->
 
         <div
             id="status"
             class="status"
         ></div>
-
 
 
         <!-- ============================= -->
@@ -122,6 +99,7 @@
             class="view active"
         >
 
+            <!-- CATEGORIES -->
 
             <div class="section-header">
 
@@ -133,13 +111,10 @@
                     class="see-all"
                     data-view-target="all"
                 >
-
                     See all
-
                 </button>
 
             </div>
-
 
             <div
                 id="categoryGrid"
@@ -147,6 +122,7 @@
             ></div>
 
 
+            <!-- RECENT TABS -->
 
             <div class="section-header">
 
@@ -158,13 +134,10 @@
                     class="see-all"
                     data-view-target="all"
                 >
-
                     See all
-
                 </button>
 
             </div>
-
 
             <div
                 id="recentTabs"
@@ -172,6 +145,7 @@
             ></div>
 
 
+            <!-- IMPORTANT TABS -->
 
             <div class="section-header">
 
@@ -183,22 +157,17 @@
                     class="see-all"
                     data-view-target="starred"
                 >
-
                     See all
-
                 </button>
 
             </div>
-
 
             <div
                 id="importantTabs"
                 class="tab-list"
             ></div>
 
-
         </section>
-
 
 
         <!-- ============================= -->
@@ -209,7 +178,6 @@
             id="allView"
             class="view"
         >
-
 
             <div class="section-header">
 
@@ -224,15 +192,12 @@
 
             </div>
 
-
             <div
                 id="allTabs"
                 class="tab-list"
             ></div>
 
-
         </section>
-
 
 
         <!-- ============================= -->
@@ -243,7 +208,6 @@
             id="starredView"
             class="view"
         >
-
 
             <div class="section-header">
 
@@ -258,15 +222,12 @@
 
             </div>
 
-
             <div
                 id="starredTabs"
                 class="tab-list"
             ></div>
 
-
         </section>
-
 
 
         <!-- ============================= -->
@@ -278,40 +239,31 @@
             class="view"
         >
 
-
             <div class="settings-card">
-
 
                 <h2>
                     Settings
                 </h2>
 
-
                 <p>
-
                     Tabs werden nur gespeichert,
                     wenn du manuell auf
                     „Save Tabs“ klickst.
-
                 </p>
 
 
+                <!-- RETENTION SETTINGS -->
 
                 <div class="setting-group">
-
 
                     <label
                         for="retentionDays"
                         class="setting-label"
                     >
-
                         Delete saved tabs after
-
                     </label>
 
-
                     <div class="retention-input-row">
-
 
                         <input
                             id="retentionDays"
@@ -322,61 +274,44 @@
                             value="3"
                         >
 
-
                         <span class="retention-unit">
                             days
                         </span>
 
-
                     </div>
 
-
                     <p class="setting-description">
-
                         Saved tabs are automatically
                         removed after this period.
-
                     </p>
-
 
                     <button
                         id="saveRetentionSettings"
                         class="secondary-button"
                     >
-
                         Save settings
-
                     </button>
-
 
                     <div
                         id="settingsStatus"
                         class="settings-status"
                     ></div>
 
-
                 </div>
-
 
 
                 <button
                     id="saveTabsSettings"
                     class="primary-button"
                 >
-
                     Save current tabs
-
                 </button>
-
 
             </div>
 
-
         </section>
 
-
     </main>
-
 
 
     <!-- ============================= -->
@@ -384,7 +319,6 @@
     <!-- ============================= -->
 
     <nav class="bottom-navigation">
-
 
         <button
             class="nav-item active"
@@ -449,16 +383,11 @@
 
         </button>
 
-
     </nav>
-
 
 </div>
 
-
 <script src="popup.js"></script>
 
-
 </body>
-
 </html>
