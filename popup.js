@@ -21,9 +21,6 @@ let showAllCategories = false;
 const saveButton =
     document.getElementById("saveTabs");
 
-const saveSettingsButton =
-    document.getElementById("saveTabsSettings");
-
 const searchRow =
     document.getElementById("searchRow");
 
@@ -357,14 +354,6 @@ function saveCurrentTabs() {
 
     saveButton.disabled =
         true;
-
-
-    if (saveSettingsButton) {
-
-        saveSettingsButton.disabled =
-            true;
-
-    }
 
 
     chrome.tabs.query(
@@ -782,14 +771,6 @@ function enableSaveButtons() {
 
     saveButton.disabled =
         false;
-
-
-    if (saveSettingsButton) {
-
-        saveSettingsButton.disabled =
-            false;
-
-    }
 
 }
 
@@ -1912,16 +1893,6 @@ saveButton.addEventListener(
     "click",
     saveCurrentTabs
 );
-
-
-if (saveSettingsButton) {
-
-    saveSettingsButton.addEventListener(
-        "click",
-        saveCurrentTabs
-    );
-
-}
 
 
 if (saveRetentionSettingsButton) {
