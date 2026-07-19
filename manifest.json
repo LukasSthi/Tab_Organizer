@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
 
-  "name": "TabBuddy",
+  "name": "Ariad",
 
   "description": "Save, organize and rediscover your browser tabs.",
 
@@ -23,7 +23,7 @@
 
   "action": {
     "default_popup": "popup.html",
-    "default_title": "TabBuddy"
+    "default_title": "Ariad"
   },
 
   "icons": {

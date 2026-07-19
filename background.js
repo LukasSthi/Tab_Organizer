@@ -1,4 +1,4 @@
-console.log("TabBuddy Service Worker gestartet");
+console.log("Ariad Service Worker gestartet");
 
 
 // ======================================================
@@ -7,7 +7,7 @@ console.log("TabBuddy Service Worker gestartet");
 
 const DEFAULT_RETENTION_DAYS = 3;
 
-const CLEANUP_ALARM_NAME = "tabbuddy-cleanup";
+const CLEANUP_ALARM_NAME = "Ariad-cleanup";
 
 
 // ======================================================

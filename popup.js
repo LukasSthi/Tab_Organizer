@@ -1,4 +1,4 @@
-console.log("TabBuddy Popup geladen");
+console.log("Ariad Popup geladen");
 
 
 // ======================================================
