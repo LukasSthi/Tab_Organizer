@@ -1429,3 +1429,7 @@ button {
     background:
         #c5c7d2;
 }
+
+#homeView .section-header:first-child {
+    margin-top: 0;
+}
