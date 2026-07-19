@@ -623,12 +623,11 @@ button {
 }
 
 
-.category-left > span:first-child {
-    width:
-        28px;
+.category-icon {
+    width: 30px;
+    height: 30px;
 
-    height:
-        28px;
+    flex-shrink: 0;
 
     display: flex;
 
@@ -636,17 +635,24 @@ button {
 
     justify-content: center;
 
-    border-radius:
-        8px;
+    border-radius: 8px;
 
     background:
         var(--primary-soft);
 
     color:
         var(--primary);
+}
 
-    font-size:
-        13px;
+
+.category-icon svg {
+    width: 16px;
+    height: 16px;
+
+    display: block;
+
+    stroke:
+        currentColor;
 }
 
 

@@ -69,16 +69,284 @@ const settingsStatus =
 // ======================================================
 
 const categoryIcons = {
-    Development: "⌘",
-    Work: "▣",
-    Education: "◈",
-    Research: "⌕",
-    Design: "✦",
-    Social: "◎",
-    Entertainment: "▷",
-    Shopping: "◇",
-    News: "≡",
-    Uncategorized: "□"
+
+    Development: `
+        <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+            <line x1="14" y1="4" x2="10" y2="20"></line>
+        </svg>
+    `,
+
+
+    Work: `
+        <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <rect
+                x="3"
+                y="7"
+                width="18"
+                height="13"
+                rx="2"
+            ></rect>
+
+            <path
+                d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+            ></path>
+
+            <path
+                d="M3 12h18"
+            ></path>
+
+            <path
+                d="M10 12v2h4v-2"
+            ></path>
+        </svg>
+    `,
+
+
+    Education: `
+        <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path
+                d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"
+            ></path>
+
+            <path
+                d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+            ></path>
+        </svg>
+    `,
+
+
+    Research: `
+        <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <circle
+                cx="11"
+                cy="11"
+                r="7"
+            ></circle>
+
+            <line
+                x1="16.5"
+                y1="16.5"
+                x2="21"
+                y2="21"
+            ></line>
+        </svg>
+    `,
+
+
+    Design: `
+        <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path
+                d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"
+            ></path>
+
+            <path
+                d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"
+            ></path>
+        </svg>
+    `,
+
+
+    Social: `
+        <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <circle
+                cx="9"
+                cy="8"
+                r="4"
+            ></circle>
+
+            <path
+                d="M3 21v-2a6 6 0 0 1 12 0v2"
+            ></path>
+
+            <circle
+                cx="17"
+                cy="9"
+                r="3"
+            ></circle>
+
+            <path
+                d="M17 15a5 5 0 0 1 4 5"
+            ></path>
+        </svg>
+    `,
+
+
+    Entertainment: `
+        <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <circle
+                cx="12"
+                cy="12"
+                r="9"
+            ></circle>
+
+            <polygon
+                points="10 8 16 12 10 16 10 8"
+            ></polygon>
+        </svg>
+    `,
+
+
+    Shopping: `
+        <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path
+                d="M6 8h12l1 13H5L6 8z"
+            ></path>
+
+            <path
+                d="M9 8V6a3 3 0 0 1 6 0v2"
+            ></path>
+        </svg>
+    `,
+
+
+    News: `
+        <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <path
+                d="M4 4h14v16H4z"
+            ></path>
+
+            <path
+                d="M18 8h2v10a2 2 0 0 1-2 2"
+            ></path>
+
+            <line
+                x1="7"
+                y1="8"
+                x2="15"
+                y2="8"
+            ></line>
+
+            <line
+                x1="7"
+                y1="12"
+                x2="15"
+                y2="12"
+            ></line>
+
+            <line
+                x1="7"
+                y1="16"
+                x2="12"
+                y2="16"
+            ></line>
+        </svg>
+    `,
+
+
+    Uncategorized: `
+        <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <circle
+                cx="12"
+                cy="12"
+                r="9"
+            ></circle>
+
+            <path
+                d="M9.8 9a2.5 2.5 0 1 1 4.4 1.6c-.9.8-2.2 1.4-2.2 3"
+            ></path>
+
+            <circle
+                cx="12"
+                cy="17"
+                r=".5"
+                fill="currentColor"
+                stroke="none"
+            ></circle>
+        </svg>
+    `
+
 };
 
 
@@ -1711,10 +1979,10 @@ function renderCategories() {
 
 
             const icon =
-                categoryIcons[
-                    category
-                ] ||
-                "□";
+    categoryIcons[
+        category
+    ] ||
+    categoryIcons.Uncategorized;
 
 
             card.innerHTML = `
