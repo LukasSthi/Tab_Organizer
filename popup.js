@@ -63,48 +63,56 @@ displayTabs(tabs);
 
 // Tabs anzeigen
 
-function displayTabs(tabs){
-
+function displayTabs(tabs) {
 
     tabList.innerHTML = "";
 
+    // Tabs nach Kategorien gruppieren
+    const groupedTabs = {};
 
     tabs.forEach(tab => {
 
+        if (!groupedTabs[tab.category]) {
+            groupedTabs[tab.category] = [];
+        }
 
-        const card = document.createElement("div");
-
-
-        card.className = "tab-card";
-
-
-        card.innerHTML = `
-
-    <strong>▶ ${tab.title}</strong>
-
-    <br>
-
-    <small>${tab.domain}</small>
-
-`;
-
-
-        card.addEventListener("click", () => {
-
-    chrome.tabs.create({
-
-        url: tab.url
+        groupedTabs[tab.category].push(tab);
 
     });
 
-});
+    // Jede Kategorie anzeigen
+    Object.keys(groupedTabs).forEach(category => {
 
+        // Überschrift
+        const heading = document.createElement("h3");
+        heading.textContent = "📁 " + category;
+        tabList.appendChild(heading);
 
-tabList.appendChild(card);
+        // Alle Tabs dieser Kategorie
+        groupedTabs[category].forEach(tab => {
 
+            const card = document.createElement("div");
+
+            card.className = "tab-card";
+
+            card.innerHTML = `
+                <strong>▶ ${tab.title}</strong><br>
+                <small>${tab.domain}</small>
+            `;
+
+            card.addEventListener("click", () => {
+
+                chrome.tabs.create({
+                    url: tab.url
+                });
+
+            });
+
+            tabList.appendChild(card);
+
+        });
 
     });
-
 
 }
 
