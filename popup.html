@@ -114,9 +114,8 @@
 
 
         <!-- ============================= -->
-        <!-- HOME VIEW -->
+        <!-- HOME -->
         <!-- ============================= -->
-
 
         <section
             id="homeView"
@@ -124,16 +123,11 @@
         >
 
 
-            <!-- CATEGORIES -->
-
-
             <div class="section-header">
-
 
                 <h2>
                     Categories
                 </h2>
-
 
                 <button
                     class="see-all"
@@ -144,9 +138,7 @@
 
                 </button>
 
-
             </div>
-
 
 
             <div
@@ -156,16 +148,11 @@
 
 
 
-            <!-- RECENT TABS -->
-
-
             <div class="section-header">
-
 
                 <h2>
                     Recent Tabs
                 </h2>
-
 
                 <button
                     class="see-all"
@@ -176,9 +163,7 @@
 
                 </button>
 
-
             </div>
-
 
 
             <div
@@ -188,16 +173,11 @@
 
 
 
-            <!-- IMPORTANT TABS -->
-
-
             <div class="section-header">
-
 
                 <h2>
                     Important Tabs
                 </h2>
-
 
                 <button
                     class="see-all"
@@ -208,9 +188,7 @@
 
                 </button>
 
-
             </div>
-
 
 
             <div
@@ -224,9 +202,8 @@
 
 
         <!-- ============================= -->
-        <!-- ALL TABS VIEW -->
+        <!-- ALL TABS -->
         <!-- ============================= -->
-
 
         <section
             id="allView"
@@ -236,17 +213,14 @@
 
             <div class="section-header">
 
-
                 <h2>
                     All Tabs
                 </h2>
-
 
                 <span
                     id="allCount"
                     class="count"
                 ></span>
-
 
             </div>
 
@@ -262,9 +236,8 @@
 
 
         <!-- ============================= -->
-        <!-- STARRED VIEW -->
+        <!-- STARRED -->
         <!-- ============================= -->
-
 
         <section
             id="starredView"
@@ -274,17 +247,14 @@
 
             <div class="section-header">
 
-
                 <h2>
                     Starred
                 </h2>
-
 
                 <span
                     id="starredCount"
                     class="count"
                 ></span>
-
 
             </div>
 
@@ -300,9 +270,8 @@
 
 
         <!-- ============================= -->
-        <!-- SETTINGS VIEW -->
+        <!-- SETTINGS -->
         <!-- ============================= -->
-
 
         <section
             id="settingsView"
@@ -325,6 +294,69 @@
                     „Save Tabs“ klickst.
 
                 </p>
+
+
+
+                <div class="setting-group">
+
+
+                    <label
+                        for="retentionDays"
+                        class="setting-label"
+                    >
+
+                        Delete saved tabs after
+
+                    </label>
+
+
+                    <div class="retention-input-row">
+
+
+                        <input
+                            id="retentionDays"
+                            class="retention-input"
+                            type="number"
+                            min="1"
+                            step="1"
+                            value="3"
+                        >
+
+
+                        <span class="retention-unit">
+                            days
+                        </span>
+
+
+                    </div>
+
+
+                    <p class="setting-description">
+
+                        Saved tabs are automatically
+                        removed after this period.
+
+                    </p>
+
+
+                    <button
+                        id="saveRetentionSettings"
+                        class="secondary-button"
+                    >
+
+                        Save settings
+
+                    </button>
+
+
+                    <div
+                        id="settingsStatus"
+                        class="settings-status"
+                    ></div>
+
+
+                </div>
+
 
 
                 <button
@@ -351,7 +383,6 @@
     <!-- BOTTOM NAVIGATION -->
     <!-- ============================= -->
 
-
     <nav class="bottom-navigation">
 
 
@@ -371,7 +402,6 @@
         </button>
 
 
-
         <button
             class="nav-item"
             data-view="all"
@@ -388,7 +418,6 @@
         </button>
 
 
-
         <button
             class="nav-item"
             data-view="starred"
@@ -403,7 +432,6 @@
             </span>
 
         </button>
-
 
 
         <button

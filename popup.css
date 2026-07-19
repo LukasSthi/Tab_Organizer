@@ -2,20 +2,13 @@
 /* BASIC */
 /* ============================= */
 
-
 * {
-
     box-sizing: border-box;
-
 }
 
-
 body {
-
     margin: 0;
-
     width: 380px;
-
     min-height: 580px;
 
     font-family:
@@ -24,34 +17,29 @@ body {
         sans-serif;
 
     background: #ffffff;
-
     color: #222222;
-
 }
 
-
-button {
-
+button,
+input {
     font-family: inherit;
-
 }
 
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
 
 .app {
-
     min-height: 580px;
-
 }
-
 
 
 /* ============================= */
 /* HEADER */
 /* ============================= */
 
-
 .header {
-
     height: 58px;
 
     padding:
@@ -59,47 +47,31 @@ button {
         16px;
 
     display: flex;
-
     align-items: center;
-
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
     border-bottom:
         1px solid #e5e5e5;
 
+    background: #ffffff;
 }
-
 
 .brand {
-
     display: flex;
-
     align-items: center;
-
     gap: 8px;
-
 }
-
 
 .brand-icon {
-
     font-size: 20px;
-
 }
-
 
 .brand-name {
-
     font-size: 15px;
-
     font-weight: 600;
-
 }
 
-
 .save-button {
-
     padding:
         8px
         12px;
@@ -116,56 +88,47 @@ button {
 
     cursor: pointer;
 
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease;
 }
 
-
-.save-button:hover {
-
+.save-button:hover:not(:disabled) {
     background:
         #f5f5f5;
 
+    border-color:
+        #cccccc;
 }
-
 
 
 /* ============================= */
 /* CONTENT */
 /* ============================= */
 
-
 .content {
-
     padding:
         14px
         14px
         80px;
-
 }
-
 
 
 /* ============================= */
 /* SEARCH */
 /* ============================= */
 
-
 .search-row {
-
     display: flex;
-
     gap: 8px;
-
 }
 
-
 .search-box {
-
     flex: 1;
 
     height: 40px;
 
     display: flex;
-
     align-items: center;
 
     gap: 8px;
@@ -179,34 +142,51 @@ button {
 
     border-radius: 7px;
 
+    background:
+        #ffffff;
+
+    transition:
+        border-color 0.15s ease;
 }
 
+.search-box:focus-within {
+    border-color:
+        #999999;
+}
 
 .search-icon {
+    color:
+        #777777;
 
-    color: #777777;
-
+    font-size: 16px;
 }
 
-
 .search-box input {
-
     width: 100%;
 
     border: none;
 
     outline: none;
 
+    background:
+        transparent;
+
     font-size: 13px;
 
+    color:
+        #222222;
 }
 
+.search-box input::placeholder {
+    color:
+        #999999;
+}
 
 .filter-button {
-
     width: 40px;
-
     height: 40px;
+
+    flex-shrink: 0;
 
     border:
         1px solid #dddddd;
@@ -218,64 +198,50 @@ button {
 
     cursor: pointer;
 
+    transition:
+        background 0.15s ease;
 }
-
 
 .filter-button:hover {
-
     background:
         #f5f5f5;
-
 }
-
 
 
 /* ============================= */
 /* STATUS */
 /* ============================= */
 
-
 .status {
-
     min-height: 20px;
 
     padding-top: 6px;
 
     font-size: 11px;
 
-    color: #777777;
-
+    color:
+        #777777;
 }
-
 
 
 /* ============================= */
 /* VIEWS */
 /* ============================= */
 
-
 .view {
-
     display: none;
-
 }
-
 
 .view.active {
-
     display: block;
-
 }
-
 
 
 /* ============================= */
 /* SECTION HEADER */
 /* ============================= */
 
-
 .section-header {
-
     display: flex;
 
     align-items: center;
@@ -286,51 +252,48 @@ button {
     margin-top: 14px;
 
     margin-bottom: 8px;
-
 }
 
-
 .section-header h2 {
-
     margin: 0;
 
     font-size: 13px;
 
+    font-weight: 600;
 }
 
-
 .see-all {
+    padding: 3px 4px;
 
     border: none;
 
     background: none;
 
-    color: #2468a2;
+    color:
+        #2468a2;
 
     font-size: 11px;
 
     cursor: pointer;
-
 }
 
+.see-all:hover {
+    text-decoration: underline;
+}
 
 .count {
-
-    color: #777777;
+    color:
+        #777777;
 
     font-size: 11px;
-
 }
-
 
 
 /* ============================= */
 /* CATEGORIES */
 /* ============================= */
 
-
 .category-grid {
-
     display: grid;
 
     grid-template-columns:
@@ -338,12 +301,9 @@ button {
         1fr;
 
     gap: 8px;
-
 }
 
-
 .category-card {
-
     min-height: 42px;
 
     padding:
@@ -357,6 +317,8 @@ button {
     justify-content:
         space-between;
 
+    gap: 8px;
+
     border:
         1px solid #dddddd;
 
@@ -367,52 +329,56 @@ button {
 
     cursor: pointer;
 
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease;
 }
 
-
 .category-card:hover {
-
     background:
         #f7f7f7;
 
+    border-color:
+        #cccccc;
 }
 
-
 .category-left {
-
     display: flex;
 
     align-items: center;
 
     gap: 7px;
 
+    min-width: 0;
 }
-
 
 .category-name {
+    overflow: hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
 
     font-size: 12px;
-
 }
 
-
 .category-count {
+    flex-shrink: 0;
 
     font-size: 11px;
 
-    color: #777777;
-
+    color:
+        #777777;
 }
-
 
 
 /* ============================= */
 /* TAB LIST */
 /* ============================= */
 
-
 .tab-list {
-
     border:
         1px solid #dddddd;
 
@@ -420,11 +386,11 @@ button {
 
     overflow: hidden;
 
+    background:
+        #ffffff;
 }
 
-
 .tab-card {
-
     min-height: 58px;
 
     padding:
@@ -445,34 +411,26 @@ button {
 
     cursor: pointer;
 
+    transition:
+        background 0.15s ease;
 }
-
 
 .tab-card:last-child {
-
     border-bottom: none;
-
 }
-
 
 .tab-card:hover {
-
     background:
         #f7f7f7;
-
 }
-
 
 
 /* ============================= */
 /* FAVICON */
 /* ============================= */
 
-
 .favicon {
-
     width: 34px;
-
     height: 34px;
 
     flex-shrink: 0;
@@ -491,51 +449,45 @@ button {
     background:
         #fafafa;
 
+    overflow: hidden;
 }
-
 
 .favicon img {
-
     width: 18px;
-
     height: 18px;
 
+    object-fit: contain;
 }
-
 
 
 /* ============================= */
 /* TAB INFO */
 /* ============================= */
 
-
 .tab-info {
-
     flex: 1;
 
     min-width: 0;
-
 }
 
-
 .tab-title {
-
     overflow: hidden;
 
     text-overflow:
         ellipsis;
 
-    white-space: nowrap;
+    white-space:
+        nowrap;
 
     font-size: 12px;
 
     font-weight: 600;
 
+    color:
+        #222222;
 }
 
-
 .tab-domain {
-
     margin-top: 3px;
 
     overflow: hidden;
@@ -543,51 +495,54 @@ button {
     text-overflow:
         ellipsis;
 
-    white-space: nowrap;
+    white-space:
+        nowrap;
 
     font-size: 10px;
 
-    color: #777777;
-
+    color:
+        #777777;
 }
-
 
 
 /* ============================= */
 /* TAB ACTIONS */
 /* ============================= */
 
-
 .tab-actions {
-
     display: flex;
 
     align-items: center;
 
     gap: 3px;
 
+    flex-shrink: 0;
 }
 
-
 .tab-time {
-
     margin-right: 4px;
 
     font-size: 10px;
 
-    color: #888888;
+    color:
+        #888888;
 
-    white-space: nowrap;
-
+    white-space:
+        nowrap;
 }
-
 
 .star-button,
 .delete-button {
-
     width: 26px;
-
     height: 26px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0;
 
     border: none;
 
@@ -598,61 +553,51 @@ button {
 
     cursor: pointer;
 
+    transition:
+        background 0.15s ease;
 }
-
 
 .star-button {
-
     font-size: 17px;
-
 }
-
 
 .delete-button {
+    font-size: 16px;
 
-    font-size: 15px;
-
-    color: #888888;
-
+    color:
+        #888888;
 }
-
 
 .star-button:hover,
 .delete-button:hover {
-
     background:
-        #eeeeee;
-
+        #e9e9e9;
 }
-
 
 
 /* ============================= */
 /* EMPTY STATE */
 /* ============================= */
 
-
 .empty-state {
-
     padding: 20px;
 
     text-align: center;
 
     font-size: 12px;
 
-    color: #888888;
+    line-height: 1.5;
 
+    color:
+        #888888;
 }
-
 
 
 /* ============================= */
 /* SETTINGS */
 /* ============================= */
 
-
 .settings-card {
-
     margin-top: 14px;
 
     padding: 18px;
@@ -662,36 +607,177 @@ button {
 
     border-radius: 8px;
 
+    background:
+        #ffffff;
 }
-
 
 .settings-card h2 {
-
-    margin-top: 0;
+    margin:
+        0
+        0
+        10px;
 
     font-size: 16px;
-
 }
 
-
-.settings-card p {
+.settings-card > p {
+    margin:
+        0
+        0
+        16px;
 
     font-size: 12px;
 
     line-height: 1.5;
 
-    color: #666666;
-
+    color:
+        #666666;
 }
 
 
-.primary-button {
+/* ============================= */
+/* RETENTION SETTINGS */
+/* ============================= */
 
+.setting-group {
+    margin-top: 18px;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid #eeeeee;
+}
+
+.setting-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color:
+        #222222;
+}
+
+.retention-input-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.retention-input {
+    width: 80px;
+    height: 38px;
+
+    padding:
+        0
+        10px;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    background:
+        #ffffff;
+
+    font-size: 13px;
+
+    color:
+        #222222;
+
+    transition:
+        border-color 0.15s ease;
+}
+
+.retention-input:focus {
+    border-color:
+        #999999;
+}
+
+.retention-unit {
+    font-size: 12px;
+
+    color:
+        #555555;
+}
+
+.setting-description {
+    margin:
+        8px
+        0
+        12px;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    color:
+        #888888;
+}
+
+
+/* ============================= */
+/* SETTINGS BUTTONS */
+/* ============================= */
+
+.secondary-button {
+    padding:
+        9px
+        12px;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 7px;
+
+    background:
+        #ffffff;
+
+    font-size: 12px;
+
+    color:
+        #222222;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.secondary-button:hover {
+    background:
+        #f5f5f5;
+
+    border-color:
+        #cccccc;
+}
+
+.settings-status {
+    min-height: 20px;
+
+    margin-top: 8px;
+
+    font-size: 11px;
+
+    color:
+        #666666;
+}
+
+.primary-button {
     width: 100%;
 
-    margin-top: 10px;
+    margin-top: 16px;
 
-    padding: 11px;
+    padding:
+        11px;
 
     border: none;
 
@@ -703,29 +789,32 @@ button {
     color:
         #ffffff;
 
+    font-size: 12px;
+
     cursor: pointer;
 
+    transition:
+        background 0.15s ease;
 }
 
+.primary-button:hover:not(:disabled) {
+    background:
+        #3a3a3a;
+}
 
 
 /* ============================= */
 /* BOTTOM NAVIGATION */
 /* ============================= */
 
-
 .bottom-navigation {
-
     position: fixed;
 
     left: 0;
-
     right: 0;
-
     bottom: 0;
 
     width: 380px;
-
     height: 64px;
 
     display: grid;
@@ -739,11 +828,10 @@ button {
     background:
         #ffffff;
 
+    z-index: 10;
 }
 
-
 .nav-item {
-
     display: flex;
 
     flex-direction: column;
@@ -754,38 +842,40 @@ button {
 
     gap: 4px;
 
+    padding: 0;
+
     border: none;
 
     background:
         transparent;
 
+    color:
+        #555555;
+
     font-size: 10px;
 
     cursor: pointer;
 
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
 }
-
 
 .nav-icon {
-
     font-size: 18px;
-
 }
-
 
 .nav-item:hover {
-
     background:
         #f7f7f7;
-
 }
 
-
 .nav-item.active {
-
     background:
         #f3f3f3;
 
-    font-weight: 600;
+    color:
+        #222222;
 
+    font-weight: 600;
 }

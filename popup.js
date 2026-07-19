@@ -17,37 +17,87 @@ let activeCategory = null;
 // ======================================================
 
 const saveButton =
-    document.getElementById("saveTabs");
+    document.getElementById(
+        "saveTabs"
+    );
+
 
 const saveSettingsButton =
-    document.getElementById("saveTabsSettings");
+    document.getElementById(
+        "saveTabsSettings"
+    );
+
 
 const searchInput =
-    document.getElementById("search");
+    document.getElementById(
+        "search"
+    );
+
 
 const statusElement =
-    document.getElementById("status");
+    document.getElementById(
+        "status"
+    );
+
 
 const categoryGrid =
-    document.getElementById("categoryGrid");
+    document.getElementById(
+        "categoryGrid"
+    );
+
 
 const recentTabs =
-    document.getElementById("recentTabs");
+    document.getElementById(
+        "recentTabs"
+    );
+
 
 const importantTabs =
-    document.getElementById("importantTabs");
+    document.getElementById(
+        "importantTabs"
+    );
+
 
 const allTabsContainer =
-    document.getElementById("allTabs");
+    document.getElementById(
+        "allTabs"
+    );
+
 
 const starredTabs =
-    document.getElementById("starredTabs");
+    document.getElementById(
+        "starredTabs"
+    );
+
 
 const allCount =
-    document.getElementById("allCount");
+    document.getElementById(
+        "allCount"
+    );
+
 
 const starredCount =
-    document.getElementById("starredCount");
+    document.getElementById(
+        "starredCount"
+    );
+
+
+const retentionDaysInput =
+    document.getElementById(
+        "retentionDays"
+    );
+
+
+const saveRetentionSettingsButton =
+    document.getElementById(
+        "saveRetentionSettings"
+    );
+
+
+const settingsStatus =
+    document.getElementById(
+        "settingsStatus"
+    );
 
 
 // ======================================================
@@ -76,16 +126,26 @@ const categoryIcons = {
 function getCategory(domain) {
 
     const normalizedDomain =
-        (domain || "").toLowerCase();
+        (domain || "")
+            .toLowerCase();
 
-
-    // Development
 
     if (
-        normalizedDomain.includes("github.com") ||
-        normalizedDomain.includes("stackoverflow.com") ||
-        normalizedDomain.includes("developer.mozilla.org") ||
-        normalizedDomain.includes("npmjs.com")
+        normalizedDomain.includes(
+            "github.com"
+        ) ||
+
+        normalizedDomain.includes(
+            "stackoverflow.com"
+        ) ||
+
+        normalizedDomain.includes(
+            "developer.mozilla.org"
+        ) ||
+
+        normalizedDomain.includes(
+            "npmjs.com"
+        )
     ) {
 
         return "Development";
@@ -93,14 +153,26 @@ function getCategory(domain) {
     }
 
 
-    // Education
-
     if (
-        normalizedDomain.includes("moodle") ||
-        normalizedDomain.includes("wikipedia.org") ||
-        normalizedDomain.includes("coursera.org") ||
-        normalizedDomain.includes("udemy.com") ||
-        normalizedDomain.includes("edx.org")
+        normalizedDomain.includes(
+            "moodle"
+        ) ||
+
+        normalizedDomain.includes(
+            "wikipedia.org"
+        ) ||
+
+        normalizedDomain.includes(
+            "coursera.org"
+        ) ||
+
+        normalizedDomain.includes(
+            "udemy.com"
+        ) ||
+
+        normalizedDomain.includes(
+            "edx.org"
+        )
     ) {
 
         return "Education";
@@ -108,13 +180,22 @@ function getCategory(domain) {
     }
 
 
-    // Entertainment
-
     if (
-        normalizedDomain.includes("youtube.com") ||
-        normalizedDomain.includes("netflix.com") ||
-        normalizedDomain.includes("spotify.com") ||
-        normalizedDomain.includes("twitch.tv")
+        normalizedDomain.includes(
+            "youtube.com"
+        ) ||
+
+        normalizedDomain.includes(
+            "netflix.com"
+        ) ||
+
+        normalizedDomain.includes(
+            "spotify.com"
+        ) ||
+
+        normalizedDomain.includes(
+            "twitch.tv"
+        )
     ) {
 
         return "Entertainment";
@@ -122,12 +203,18 @@ function getCategory(domain) {
     }
 
 
-    // Shopping
-
     if (
-        normalizedDomain.includes("amazon.") ||
-        normalizedDomain.includes("ebay.") ||
-        normalizedDomain.includes("zalando.")
+        normalizedDomain.includes(
+            "amazon."
+        ) ||
+
+        normalizedDomain.includes(
+            "ebay."
+        ) ||
+
+        normalizedDomain.includes(
+            "zalando."
+        )
     ) {
 
         return "Shopping";
@@ -141,16 +228,18 @@ function getCategory(domain) {
 
 
 // ======================================================
-// DOMAIN AUS URL
+// DOMAIN
 // ======================================================
 
 function getDomain(url) {
 
     try {
 
-        return new URL(url).hostname;
+        return new URL(
+            url
+        ).hostname;
 
-    } catch (error) {
+    } catch {
 
         return "";
 
@@ -160,7 +249,7 @@ function getDomain(url) {
 
 
 // ======================================================
-// PRÜFEN, OB TAB GESPEICHERT WERDEN DARF
+// GÜLTIGE URL
 // ======================================================
 
 function isValidTabUrl(url) {
@@ -172,36 +261,49 @@ function isValidTabUrl(url) {
     }
 
 
-    if (
-        url.startsWith("chrome://") ||
-        url.startsWith("chrome-extension://") ||
-        url.startsWith("edge://") ||
-        url.startsWith("about:")
-    ) {
+    return !(
+        url.startsWith(
+            "chrome://"
+        ) ||
 
-        return false;
+        url.startsWith(
+            "chrome-extension://"
+        ) ||
 
-    }
+        url.startsWith(
+            "edge://"
+        ) ||
 
-
-    return true;
+        url.startsWith(
+            "about:"
+        )
+    );
 
 }
 
 
 // ======================================================
-// TABS AUS STORAGE LADEN
+// TABS LADEN
 // ======================================================
 
 function loadTabs() {
 
     chrome.storage.local.get(
-        ["savedTabs"],
+        [
+            "savedTabs",
+            "retentionDays"
+        ],
 
         (result) => {
 
+
             allTabs =
                 result.savedTabs || [];
+
+
+            retentionDaysInput.value =
+                result.retentionDays ||
+                3;
 
 
             renderEverything();
@@ -213,24 +315,22 @@ function loadTabs() {
 
 
 // ======================================================
-// TABS MANUELL SPEICHERN
+// MANUELL SPEICHERN
 // ======================================================
 
 function saveCurrentTabs() {
-
-    // Sofortiges visuelles Feedback
 
     statusElement.textContent =
         "Saving tabs...";
 
 
-    // Button während des Speicherns deaktivieren
-
     saveButton.disabled =
         true;
 
 
-    if (saveSettingsButton) {
+    if (
+        saveSettingsButton
+    ) {
 
         saveSettingsButton.disabled =
             true;
@@ -238,17 +338,18 @@ function saveCurrentTabs() {
     }
 
 
-    // Tabs des aktuellen Fensters holen
-
     chrome.tabs.query(
         {
-            currentWindow: true
+            currentWindow:
+                true
         },
 
         (openTabs) => {
 
 
-            if (chrome.runtime.lastError) {
+            if (
+                chrome.runtime.lastError
+            ) {
 
                 console.error(
                     chrome.runtime.lastError
@@ -267,42 +368,45 @@ function saveCurrentTabs() {
             }
 
 
-            // Bereits gespeicherte Tabs laden
-
             chrome.storage.local.get(
                 ["savedTabs"],
 
                 (result) => {
 
 
+                    // Wichtig:
+                    // Bestehende Tabs komplett behalten
+
                     const existingTabs =
                         result.savedTabs || [];
 
 
+                    // Neue Liste startet mit ALLEN
+                    // bisher gespeicherten Tabs
+
+                    const updatedTabs =
+                        [...existingTabs];
+
+
+                    // Bereits gespeicherte URLs
+
+                    const existingUrls =
+                        new Set(
+                            existingTabs.map(
+                                tab =>
+                                    tab.url
+                            )
+                        );
+
+
                     const now =
-                        new Date().toISOString();
+                        new Date()
+                            .toISOString();
 
 
-                    // Map verwenden:
-                    // URL = eindeutiger Schlüssel
+                    let newTabsCount =
+                        0;
 
-                    const tabsByUrl =
-                        new Map();
-
-
-                    existingTabs.forEach(
-                        (tab) => {
-
-                            tabsByUrl.set(
-                                tab.url,
-                                tab
-                            );
-
-                        }
-                    );
-
-
-                    // Offene Tabs verarbeiten
 
                     openTabs.forEach(
                         (tab) => {
@@ -319,202 +423,133 @@ function saveCurrentTabs() {
                             }
 
 
+                            // Bereits gespeichert?
+                            // Dann NICHT verändern
+                            // und NICHT erneut hinzufügen.
+
+                            if (
+                                existingUrls.has(
+                                    tab.url
+                                )
+                            ) {
+
+                                return;
+
+                            }
+
+
                             const domain =
                                 getDomain(
                                     tab.url
                                 );
 
 
-                            const existingTab =
-                                tabsByUrl.get(
-                                    tab.url
-                                );
+                            const newTab = {
+
+                                id:
+                                    crypto.randomUUID(),
 
 
-                            // --------------------------------
-                            // Bereits gespeicherter Tab
-                            // --------------------------------
+                                title:
 
-                            if (existingTab) {
+                                    tab.title ||
+
+                                    "Untitled Tab",
 
 
-                                tabsByUrl.set(
+                                url:
                                     tab.url,
 
-                                    {
 
-                                        ...existingTab,
+                                domain:
+                                    domain,
 
 
-                                        title:
+                                favicon:
 
-                                            tab.title ||
+                                    tab.favIconUrl ||
 
-                                            existingTab.title ||
+                                    null,
 
-                                            "Untitled Tab",
 
+                                category:
 
-                                        domain:
-                                            domain,
+                                    getCategory(
+                                        domain
+                                    ),
 
 
-                                        favicon:
+                                tags:
+                                    [],
 
-                                            tab.favIconUrl ||
 
-                                            existingTab.favicon ||
+                                workspace:
+                                    null,
 
-                                            null,
 
+                                starred:
+                                    false,
 
-                                        category:
 
-                                            getCategory(
-                                                domain
-                                            ),
+                                // Zeitpunkt,
+                                // ab dem die Löschfrist zählt
 
+                                createdAt:
+                                    now,
 
-                                        // Wichtig:
-                                        // Starred bleibt erhalten
 
-                                        starred:
+                                lastOpened:
+                                    now,
 
-                                            existingTab.starred === true,
 
+                                openCount:
+                                    1,
 
-                                        lastOpened:
 
-                                            now,
+                                keywords:
+                                    []
 
+                            };
 
-                                        openCount:
 
-                                            (
-                                                existingTab.openCount ||
-                                                0
-                                            ) + 1
+                            updatedTabs.push(
+                                newTab
+                            );
 
-                                    }
-                                );
 
+                            // Verhindert Duplikate,
+                            // falls dieselbe URL mehrfach
+                            // im Fenster geöffnet ist.
 
-                            }
+                            existingUrls.add(
+                                tab.url
+                            );
 
 
-                            // --------------------------------
-                            // Neuer Tab
-                            // --------------------------------
-
-                            else {
-
-
-                                tabsByUrl.set(
-                                    tab.url,
-
-                                    {
-
-                                        id:
-                                            crypto.randomUUID(),
-
-
-                                        title:
-
-                                            tab.title ||
-
-                                            "Untitled Tab",
-
-
-                                        url:
-                                            tab.url,
-
-
-                                        domain:
-                                            domain,
-
-
-                                        favicon:
-
-                                            tab.favIconUrl ||
-
-                                            null,
-
-
-                                        category:
-
-                                            getCategory(
-                                                domain
-                                            ),
-
-
-                                        tags:
-                                            [],
-
-
-                                        workspace:
-                                            null,
-
-
-                                        // Wichtig für Important Tabs
-
-                                        starred:
-                                            false,
-
-
-                                        createdAt:
-                                            now,
-
-
-                                        lastOpened:
-                                            now,
-
-
-                                        openCount:
-                                            1,
-
-
-                                        keywords:
-                                            []
-
-                                    }
-                                );
-
-
-                            }
-
+                            newTabsCount++;
 
                         }
                     );
 
 
-                    // Map wieder in Array umwandeln
-
-                    const updatedTabs =
-                        Array.from(
-                            tabsByUrl.values()
-                        );
-
-
-                    // Neueste zuerst
+                    // Neueste Tabs zuerst
 
                     updatedTabs.sort(
                         (a, b) =>
 
                             new Date(
-                                b.lastOpened
+                                b.createdAt
                             )
 
                             -
 
                             new Date(
-                                a.lastOpened
+                                a.createdAt
                             )
                     );
 
 
-                    // --------------------------------
-                    // UI SOFORT AKTUALISIEREN
-                    // --------------------------------
+                    // UI sofort aktualisieren
 
                     allTabs =
                         updatedTabs;
@@ -522,10 +557,6 @@ function saveCurrentTabs() {
 
                     renderEverything();
 
-
-                    // --------------------------------
-                    // STORAGE
-                    // --------------------------------
 
                     chrome.storage.local.set(
                         {
@@ -536,40 +567,48 @@ function saveCurrentTabs() {
                         () => {
 
 
+                            enableSaveButtons();
+
+
                             if (
                                 chrome.runtime.lastError
                             ) {
 
-
-                                console.error(
-                                    chrome.runtime.lastError
-                                );
-
-
                                 statusElement.textContent =
                                     "Could not save tabs.";
-
-
-                                enableSaveButtons();
-
 
                                 return;
 
                             }
 
 
-                            statusElement.textContent =
-                                openTabs.length === 1
+                            if (
+                                newTabsCount ===
+                                0
+                            ) {
 
-                                    ? "1 tab saved."
+                                statusElement.textContent =
+                                    "All open tabs are already saved.";
 
-                                    : `${openTabs.length} tabs saved.`;
+                            }
 
+                            else if (
+                                newTabsCount ===
+                                1
+                            ) {
 
-                            enableSaveButtons();
+                                statusElement.textContent =
+                                    "1 new tab saved.";
 
+                            }
 
-                            // Meldung wieder entfernen
+                            else {
+
+                                statusElement.textContent =
+                                    `${newTabsCount} new tabs saved.`;
+
+                            }
+
 
                             setTimeout(
                                 () => {
@@ -579,17 +618,14 @@ function saveCurrentTabs() {
 
                                 },
 
-                                1200
+                                1500
                             );
-
 
                         }
                     );
 
-
                 }
             );
-
 
         }
     );
@@ -598,7 +634,7 @@ function saveCurrentTabs() {
 
 
 // ======================================================
-// SAVE BUTTONS WIEDER AKTIVIEREN
+// BUTTONS AKTIVIEREN
 // ======================================================
 
 function enableSaveButtons() {
@@ -607,7 +643,9 @@ function enableSaveButtons() {
         false;
 
 
-    if (saveSettingsButton) {
+    if (
+        saveSettingsButton
+    ) {
 
         saveSettingsButton.disabled =
             false;
@@ -618,17 +656,140 @@ function enableSaveButtons() {
 
 
 // ======================================================
-// STAR TOGGLE
+// RETENTION SETTINGS LADEN
+// ======================================================
+
+function loadRetentionSettings() {
+
+    chrome.storage.local.get(
+        ["retentionDays"],
+
+        (result) => {
+
+            retentionDaysInput.value =
+                result.retentionDays ||
+                3;
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// RETENTION SETTINGS SPEICHERN
+// ======================================================
+
+function saveRetentionSettings() {
+
+    let days =
+        Number(
+            retentionDaysInput.value
+        );
+
+
+    // Mindestens 1 Tag
+
+    if (
+        !Number.isFinite(
+            days
+        ) ||
+
+        days < 1
+    ) {
+
+        days =
+            1;
+
+    }
+
+
+    // Nur ganze Tage
+
+    days =
+        Math.floor(
+            days
+        );
+
+
+    retentionDaysInput.value =
+        days;
+
+
+    chrome.storage.local.set(
+        {
+            retentionDays:
+                days
+        },
+
+        () => {
+
+
+            if (
+                chrome.runtime.lastError
+            ) {
+
+                settingsStatus.textContent =
+                    "Settings could not be saved.";
+
+
+                return;
+
+            }
+
+
+            settingsStatus.textContent =
+                `Tabs will be deleted after ${days} days.`;
+
+
+            // Direkt prüfen,
+            // ob bereits Tabs zu alt sind
+
+            chrome.runtime.sendMessage(
+                {
+                    action:
+                        "cleanupOldTabs"
+                },
+
+                () => {
+
+
+                    // Danach Daten neu laden
+
+                    loadTabs();
+
+                }
+            );
+
+
+            setTimeout(
+                () => {
+
+                    settingsStatus.textContent =
+                        "";
+
+                },
+
+                2000
+            );
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// STAR
 // ======================================================
 
 function toggleStar(tabId) {
 
-    // Tab direkt im lokalen State finden
-
     const tab =
         allTabs.find(
             item =>
-                item.id === tabId
+                item.id ===
+                tabId
         );
 
 
@@ -639,39 +800,17 @@ function toggleStar(tabId) {
     }
 
 
-    // Sofort umschalten
-
     tab.starred =
         !tab.starred;
 
 
-    // UI sofort aktualisieren
-
     renderEverything();
 
-
-    // Danach speichern
 
     chrome.storage.local.set(
         {
             savedTabs:
                 allTabs
-        },
-
-        () => {
-
-
-            if (
-                chrome.runtime.lastError
-            ) {
-
-                console.error(
-                    "Star konnte nicht gespeichert werden:",
-                    chrome.runtime.lastError
-                );
-
-            }
-
         }
     );
 
@@ -687,16 +826,13 @@ function deleteSavedTab(tabId) {
     allTabs =
         allTabs.filter(
             tab =>
-                tab.id !== tabId
+                tab.id !==
+                tabId
         );
 
 
-    // UI sofort aktualisieren
-
     renderEverything();
 
-
-    // Storage aktualisieren
 
     chrome.storage.local.set(
         {
@@ -709,7 +845,7 @@ function deleteSavedTab(tabId) {
 
 
 // ======================================================
-// VIEW WECHSELN
+// VIEW
 // ======================================================
 
 function switchView(view) {
@@ -718,11 +854,9 @@ function switchView(view) {
         view;
 
 
-    // Kategorie nur entfernen,
-    // wenn wir die All-Tabs-Ansicht verlassen
-
     if (
-        view !== "all"
+        view !==
+        "all"
     ) {
 
         activeCategory =
@@ -732,7 +866,9 @@ function switchView(view) {
 
 
     document
-        .querySelectorAll(".view")
+        .querySelectorAll(
+            ".view"
+        )
         .forEach(
             element => {
 
@@ -746,11 +882,14 @@ function switchView(view) {
 
     const targetView =
         document.getElementById(
-            view + "View"
+            view +
+            "View"
         );
 
 
-    if (targetView) {
+    if (
+        targetView
+    ) {
 
         targetView.classList.add(
             "active"
@@ -766,16 +905,12 @@ function switchView(view) {
         .forEach(
             button => {
 
-
                 button.classList.toggle(
-
                     "active",
 
                     button.dataset.view ===
                         view
-
                 );
-
 
             }
         );
@@ -799,7 +934,7 @@ function getFilteredTabs() {
 
 
     return allTabs.filter(
-        (tab) => {
+        tab => {
 
 
             const matchesCategory =
@@ -846,13 +981,9 @@ function getFilteredTabs() {
 
 
             return (
-
                 matchesCategory &&
-
                 matchesSearch
-
             );
-
 
         }
     );
@@ -861,7 +992,7 @@ function getFilteredTabs() {
 
 
 // ======================================================
-// RELATIVE ZEIT
+// RELATIVE TIME
 // ======================================================
 
 function getRelativeTime(
@@ -888,25 +1019,29 @@ function getRelativeTime(
 
     const minutes =
         Math.max(
-
             0,
 
             Math.floor(
                 difference /
                 60000
             )
-
         );
 
 
-    if (minutes < 1) {
+    if (
+        minutes <
+        1
+    ) {
 
         return "now";
 
     }
 
 
-    if (minutes < 60) {
+    if (
+        minutes <
+        60
+    ) {
 
         return `${minutes}m ago`;
 
@@ -920,7 +1055,10 @@ function getRelativeTime(
         );
 
 
-    if (hours < 24) {
+    if (
+        hours <
+        24
+    ) {
 
         return `${hours}h ago`;
 
@@ -958,9 +1096,7 @@ function createTabCard(
         "tab-card";
 
 
-    // --------------------------------
-    // FAVICON
-    // --------------------------------
+    // Favicon
 
     const favicon =
         document.createElement(
@@ -972,8 +1108,9 @@ function createTabCard(
         "favicon";
 
 
-    if (tab.favicon) {
-
+    if (
+        tab.favicon
+    ) {
 
         const image =
             document.createElement(
@@ -993,20 +1130,17 @@ function createTabCard(
             image
         );
 
+    }
 
-    } else {
-
+    else {
 
         favicon.textContent =
             "□";
 
-
     }
 
 
-    // --------------------------------
-    // INFO
-    // --------------------------------
+    // Info
 
     const info =
         document.createElement(
@@ -1059,9 +1193,7 @@ function createTabCard(
     );
 
 
-    // --------------------------------
-    // ACTIONS
-    // --------------------------------
+    // Actions
 
     const actions =
         document.createElement(
@@ -1073,10 +1205,9 @@ function createTabCard(
         "tab-actions";
 
 
-    // Zeit
-
-    if (showTime) {
-
+    if (
+        showTime
+    ) {
 
         const time =
             document.createElement(
@@ -1090,6 +1221,7 @@ function createTabCard(
 
         time.textContent =
             getRelativeTime(
+                tab.createdAt ||
                 tab.lastOpened
             );
 
@@ -1098,13 +1230,10 @@ function createTabCard(
             time
         );
 
-
     }
 
 
-    // --------------------------------
-    // STAR
-    // --------------------------------
+    // Star
 
     const starButton =
         document.createElement(
@@ -1133,11 +1262,7 @@ function createTabCard(
     starButton.addEventListener(
         "click",
 
-        (event) => {
-
-
-            // Verhindert,
-            // dass gleichzeitig der Tab geöffnet wird
+        event => {
 
             event.preventDefault();
 
@@ -1148,14 +1273,11 @@ function createTabCard(
                 tab.id
             );
 
-
         }
     );
 
 
-    // --------------------------------
-    // DELETE
-    // --------------------------------
+    // Delete
 
     const deleteButton =
         document.createElement(
@@ -1178,8 +1300,7 @@ function createTabCard(
     deleteButton.addEventListener(
         "click",
 
-        (event) => {
-
+        event => {
 
             event.preventDefault();
 
@@ -1189,7 +1310,6 @@ function createTabCard(
             deleteSavedTab(
                 tab.id
             );
-
 
         }
     );
@@ -1205,17 +1325,16 @@ function createTabCard(
     );
 
 
-    // --------------------------------
-    // TAB ÖFFNEN
-    // --------------------------------
+    // Open Tab
 
     card.addEventListener(
         "click",
 
         () => {
 
-
-            if (!tab.url) {
+            if (
+                !tab.url
+            ) {
 
                 return;
 
@@ -1229,14 +1348,9 @@ function createTabCard(
                 }
             );
 
-
         }
     );
 
-
-    // --------------------------------
-    // CARD ZUSAMMENSETZEN
-    // --------------------------------
 
     card.appendChild(
         favicon
@@ -1274,9 +1388,9 @@ function renderTabList(
 
 
     if (
-        tabs.length === 0
+        tabs.length ===
+        0
     ) {
-
 
         const empty =
             document.createElement(
@@ -1303,18 +1417,14 @@ function renderTabList(
 
 
     tabs.forEach(
-        (tab) => {
-
+        tab => {
 
             container.appendChild(
-
                 createTabCard(
                     tab,
                     showTime
                 )
-
             );
-
 
         }
     );
@@ -1337,30 +1447,18 @@ function renderCategories() {
 
 
     allTabs.forEach(
-        (tab) => {
-
+        tab => {
 
             const category =
                 tab.category ||
                 "Uncategorized";
 
 
-            if (
-                !categories[
-                    category
-                ]
-            ) {
-
-                categories[
-                    category
-                ] = 0;
-
-            }
-
-
-            categories[
-                category
-            ]++;
+            categories[category] =
+                (
+                    categories[category] ||
+                    0
+                ) + 1;
 
         }
     );
@@ -1373,9 +1471,9 @@ function renderCategories() {
 
 
     if (
-        entries.length === 0
+        entries.length ===
+        0
     ) {
-
 
         const empty =
             document.createElement(
@@ -1404,7 +1502,8 @@ function renderCategories() {
     entries
         .sort(
             (a, b) =>
-                b[1] - a[1]
+                b[1] -
+                a[1]
         )
         .slice(
             0,
@@ -1412,7 +1511,6 @@ function renderCategories() {
         )
         .forEach(
             ([category, count]) => {
-
 
                 const card =
                     document.createElement(
@@ -1427,7 +1525,8 @@ function renderCategories() {
                 const icon =
                     categoryIcons[
                         category
-                    ] || "□";
+                    ] ||
+                    "□";
 
 
                 card.innerHTML = `
@@ -1456,7 +1555,6 @@ function renderCategories() {
 
                     () => {
 
-
                         activeCategory =
                             category;
 
@@ -1464,7 +1562,6 @@ function renderCategories() {
                         switchView(
                             "all"
                         );
-
 
                     }
                 );
@@ -1474,7 +1571,6 @@ function renderCategories() {
                     card
                 );
 
-
             }
         );
 
@@ -1482,7 +1578,7 @@ function renderCategories() {
 
 
 // ======================================================
-// RENDER EVERYTHING
+// RENDER
 // ======================================================
 
 function renderEverything() {
@@ -1491,16 +1587,10 @@ function renderEverything() {
         getFilteredTabs();
 
 
-    // --------------------------------
-    // CATEGORIES
-    // --------------------------------
-
     renderCategories();
 
 
-    // --------------------------------
-    // RECENT
-    // --------------------------------
+    // Recent
 
     const recent =
         [...allTabs]
@@ -1508,12 +1598,14 @@ function renderEverything() {
                 (a, b) =>
 
                     new Date(
+                        b.createdAt ||
                         b.lastOpened
                     )
 
                     -
 
                     new Date(
+                        a.createdAt ||
                         a.lastOpened
                     )
             )
@@ -1524,27 +1616,21 @@ function renderEverything() {
 
 
     renderTabList(
-
         recentTabs,
-
         recent,
-
         true,
-
         "No saved tabs yet."
-
     );
 
 
-    // --------------------------------
-    // IMPORTANT
-    // --------------------------------
+    // Important
 
     const important =
         allTabs
             .filter(
                 tab =>
-                    tab.starred === true
+                    tab.starred ===
+                    true
             )
             .slice(
                 0,
@@ -1553,32 +1639,20 @@ function renderEverything() {
 
 
     renderTabList(
-
         importantTabs,
-
         important,
-
         false,
-
         "Star tabs to mark them as important."
-
     );
 
 
-    // --------------------------------
-    // ALL TABS
-    // --------------------------------
+    // All Tabs
 
     renderTabList(
-
         allTabsContainer,
-
         filteredTabs,
-
         false,
-
         "No tabs found."
-
     );
 
 
@@ -1586,27 +1660,21 @@ function renderEverything() {
         filteredTabs.length;
 
 
-    // --------------------------------
-    // STARRED
-    // --------------------------------
+    // Starred
 
     const starred =
         filteredTabs.filter(
             tab =>
-                tab.starred === true
+                tab.starred ===
+                true
         );
 
 
     renderTabList(
-
         starredTabs,
-
         starred,
-
         false,
-
         "No starred tabs yet."
-
     );
 
 
@@ -1620,18 +1688,15 @@ function renderEverything() {
 // EVENTS
 // ======================================================
 
-
-// Save Header Button
-
 saveButton.addEventListener(
     "click",
     saveCurrentTabs
 );
 
 
-// Save Settings Button
-
-if (saveSettingsButton) {
+if (
+    saveSettingsButton
+) {
 
     saveSettingsButton.addEventListener(
         "click",
@@ -1641,7 +1706,11 @@ if (saveSettingsButton) {
 }
 
 
-// Search
+saveRetentionSettingsButton.addEventListener(
+    "click",
+    saveRetentionSettings
+);
+
 
 searchInput.addEventListener(
     "input",
@@ -1654,21 +1723,19 @@ searchInput.addEventListener(
 );
 
 
-// Bottom Navigation
+// Navigation
 
 document
     .querySelectorAll(
         ".nav-item"
     )
     .forEach(
-        (button) => {
-
+        button => {
 
             button.addEventListener(
                 "click",
 
                 () => {
-
 
                     activeCategory =
                         null;
@@ -1678,10 +1745,8 @@ document
                         button.dataset.view
                     );
 
-
                 }
             );
-
 
         }
     );
@@ -1694,14 +1759,12 @@ document
         ".see-all"
     )
     .forEach(
-        (button) => {
-
+        button => {
 
             button.addEventListener(
                 "click",
 
                 () => {
-
 
                     activeCategory =
                         null;
@@ -1712,10 +1775,8 @@ document
                             .viewTarget
                     );
 
-
                 }
             );
-
 
         }
     );
@@ -1725,4 +1786,21 @@ document
 // START
 // ======================================================
 
-loadTabs();
+// Bei jedem Öffnen des Popups einmal prüfen,
+// ob Tabs abgelaufen sind.
+
+chrome.runtime.sendMessage(
+    {
+        action:
+            "cleanupOldTabs"
+    },
+
+    () => {
+
+        loadTabs();
+
+    }
+);
+
+
+loadRetentionSettings();
