@@ -11,6 +11,8 @@ let currentView = "home";
 
 let activeCategory = null;
 
+let showAllCategories = false;
+
 
 // ======================================================
 // ELEMENTS
@@ -33,6 +35,9 @@ const statusElement =
 
 const categoryGrid =
     document.getElementById("categoryGrid");
+
+const toggleCategoriesButton =
+    document.getElementById("toggleCategories");
 
 const recentTabs =
     document.getElementById("recentTabs");
@@ -1612,11 +1617,22 @@ function renderCategories() {
     );
 
 
+    // Nach Anzahl sortieren:
+    // größte Kategorie zuerst
+
     const entries =
         Object.entries(
             categories
+        )
+        .sort(
+            (a, b) =>
+                b[1] - a[1]
         );
 
+
+    // ==================================================
+    // KEINE KATEGORIEN
+    // ==================================================
 
     if (
         entries.length === 0
@@ -1641,85 +1657,132 @@ function renderCategories() {
         );
 
 
+        // Show more Button verstecken
+
+        toggleCategoriesButton.classList.add(
+            "hidden"
+        );
+
+
         return;
 
     }
 
 
-    entries
-        .sort(
-            (a, b) =>
-                b[1] - a[1]
-        )
-        .slice(
-            0,
-            4
-        )
-        .forEach(
-            ([category, count]) => {
+    // ==================================================
+    // SHOW MORE BUTTON
+    // ==================================================
+
+    if (
+        entries.length > 4
+    ) {
+
+        toggleCategoriesButton.classList.remove(
+            "hidden"
+        );
 
 
-                const card =
-                    document.createElement(
-                        "button"
+        toggleCategoriesButton.textContent =
+            showAllCategories
+                ? "Show less"
+                : `Show more (${entries.length - 4})`;
+
+    } else {
+
+        toggleCategoriesButton.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    // ==================================================
+    // KATEGORIEN AUSWÄHLEN
+    // ==================================================
+
+    const visibleCategories =
+        showAllCategories
+
+            ? entries
+
+            : entries.slice(
+                0,
+                4
+            );
+
+
+    // ==================================================
+    // KATEGORIEN RENDERN
+    // ==================================================
+
+    visibleCategories.forEach(
+        ([category, count]) => {
+
+
+            const card =
+                document.createElement(
+                    "button"
+                );
+
+
+            card.className =
+                "category-card";
+
+
+            const icon =
+                categoryIcons[
+                    category
+                ] ||
+                "□";
+
+
+            card.innerHTML = `
+
+                <span class="category-left">
+
+                    <span>
+                        ${icon}
+                    </span>
+
+                    <span class="category-name">
+                        ${category}
+                    </span>
+
+                </span>
+
+                <span class="category-count">
+                    ${count}
+                </span>
+
+            `;
+
+
+            // Klick auf Kategorie
+
+            card.addEventListener(
+                "click",
+
+                () => {
+
+
+                    activeCategory =
+                        category;
+
+
+                    switchView(
+                        "all"
                     );
 
-
-                card.className =
-                    "category-card";
-
-
-                const icon =
-                    categoryIcons[
-                        category
-                    ] ||
-                    "□";
+                }
+            );
 
 
-                card.innerHTML = `
+            categoryGrid.appendChild(
+                card
+            );
 
-                    <span class="category-left">
-
-                        <span>
-                            ${icon}
-                        </span>
-
-                        <span class="category-name">
-                            ${category}
-                        </span>
-
-                    </span>
-
-                    <span class="category-count">
-                        ${count}
-                    </span>
-
-                `;
-
-
-                card.addEventListener(
-                    "click",
-
-                    () => {
-
-                        activeCategory =
-                            category;
-
-
-                        switchView(
-                            "all"
-                        );
-
-                    }
-                );
-
-
-                categoryGrid.appendChild(
-                    card
-                );
-
-            }
-        );
+        }
+    );
 
 }
 
@@ -1881,6 +1944,19 @@ searchInput.addEventListener(
     }
 );
 
+toggleCategoriesButton.addEventListener(
+    "click",
+
+    () => {
+
+        showAllCategories =
+            !showAllCategories;
+
+
+        renderCategories();
+
+    }
+);
 
 // ======================================================
 // NAVIGATION
