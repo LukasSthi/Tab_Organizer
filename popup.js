@@ -136,13 +136,9 @@ function getCategory(domain) {
 function getDomain(url) {
 
     try {
-
         return new URL(url).hostname;
-
     } catch {
-
         return "";
-
     }
 
 }
@@ -187,8 +183,12 @@ function loadTabs() {
                 result.savedTabs || [];
 
 
-            retentionDaysInput.value =
-                result.retentionDays || 3;
+            if (retentionDaysInput) {
+
+                retentionDaysInput.value =
+                    result.retentionDays || 3;
+
+            }
 
 
             renderEverything();
@@ -200,7 +200,7 @@ function loadTabs() {
 
 
 // ======================================================
-// TABS MANUELL SPEICHERN
+// TABS MANUELL SPEICHERN / AKTUALISIEREN
 // ======================================================
 
 function saveCurrentTabs() {
@@ -254,8 +254,7 @@ function saveCurrentTabs() {
                 (result) => {
 
 
-                    // Bereits gespeicherte Tabs
-                    // bleiben vollständig erhalten.
+                    // Alle bisher gespeicherten Tabs behalten.
 
                     const existingTabs =
                         result.savedTabs || [];
@@ -265,21 +264,16 @@ function saveCurrentTabs() {
                         [...existingTabs];
 
 
-                    // Alle bereits gespeicherten URLs
-
-                    const existingUrls =
-                        new Set(
-                            existingTabs.map(
-                                tab => tab.url
-                            )
-                        );
-
-
                     const now =
                         new Date().toISOString();
 
 
-                    let newTabsCount = 0;
+                    let newTabsCount =
+                        0;
+
+
+                    let updatedTabsCount =
+                        0;
 
 
                     openTabs.forEach(
@@ -291,166 +285,239 @@ function saveCurrentTabs() {
                                     tab.url
                                 )
                             ) {
+
                                 return;
+
                             }
 
 
-                            // Bereits gespeicherte URL:
-                            // nichts tun.
+                            const domain =
+                                getDomain(
+                                    tab.url
+                                );
+
+
+                            // Prüfen, ob dieser Tab
+                            // bereits gespeichert ist.
 
                             const existingIndex =
-    updatedTabs.findIndex(
-        savedTab =>
-            savedTab.url === tab.url
-    );
+                                updatedTabs.findIndex(
+                                    savedTab =>
+                                        savedTab.url ===
+                                        tab.url
+                                );
 
 
-const domain =
-    getDomain(
-        tab.url
-    );
+                            // ==================================================
+                            // BESTEHENDEN TAB AKTUALISIEREN
+                            // ==================================================
+
+                            if (
+                                existingIndex !== -1
+                            ) {
+
+                                const existingTab =
+                                    updatedTabs[
+                                        existingIndex
+                                    ];
 
 
-// Bereits gespeicherter Tab:
-// Daten aktualisieren,
-// aber createdAt und starred behalten.
+                                updatedTabs[
+                                    existingIndex
+                                ] = {
 
-if (
-    existingIndex !== -1
-) {
+                                    // Alle bisherigen Werte behalten
 
-    const existingTab =
-        updatedTabs[
-            existingIndex
-        ];
+                                    ...existingTab,
 
 
-    updatedTabs[
-        existingIndex
-    ] = {
+                                    // Titel aktualisieren
 
-        ...existingTab,
+                                    title:
 
-        title:
-            tab.title ||
-            existingTab.title,
+                                        tab.title ||
 
-        domain:
-            domain,
+                                        existingTab.title ||
 
-        favicon:
-            tab.favIconUrl ||
-            existingTab.favicon,
-
-        category:
-            getCategory(
-                domain
-            ),
-
-        starred:
-            existingTab.starred === true,
-
-        createdAt:
-            existingTab.createdAt,
-
-        lastOpened:
-            now,
-
-        openCount:
-            (
-                existingTab.openCount ||
-                0
-            ) + 1
-
-    };
+                                        "Untitled Tab",
 
 
-    return;
+                                    // Domain aktualisieren
 
-}
+                                    domain:
+                                        domain,
+
+
+                                    // Favicon aktualisieren
+
+                                    favicon:
+
+                                        tab.favIconUrl ||
+
+                                        existingTab.favicon ||
+
+                                        null,
+
+
+                                    // Kategorie neu prüfen
+
+                                    category:
+
+                                        getCategory(
+                                            domain
+                                        ),
+
+
+                                    // WICHTIG:
+                                    // Star-Status bleibt erhalten
+
+                                    starred:
+
+                                        existingTab.starred ===
+                                        true,
+
+
+                                    // WICHTIG:
+                                    // ursprüngliches Speicherdatum bleibt erhalten
+
+                                    createdAt:
+
+                                        existingTab.createdAt ||
+
+                                        now,
+
+
+                                    // Zeitpunkt des letzten Speicherns
+
+                                    lastOpened:
+                                        now,
+
+
+                                    // Anzahl erhöhen
+
+                                    openCount:
+
+                                        (
+                                            existingTab.openCount ||
+                                            0
+                                        ) + 1
+
+                                };
+
+
+                                updatedTabsCount++;
+
+
+                                return;
+
+                            }
+
+
+                            // ==================================================
+                            // NEUEN TAB HINZUFÜGEN
+                            // ==================================================
 
                             const newTab = {
 
-    id:
-        crypto.randomUUID(),
-
-    title:
-        tab.title ||
-        "Untitled Tab",
-
-    url:
-        tab.url,
-
-    domain:
-        domain,
-
-    favicon:
-        tab.favIconUrl ||
-        null,
-
-    category:
-        getCategory(
-            domain
-        ),
-
-    tags:
-        [],
-
-    workspace:
-        null,
-
-    starred:
-        false,
-
-    createdAt:
-        now,
-
-    lastOpened:
-        now,
-
-    openCount:
-        1,
-
-    keywords:
-        []
-
-};
+                                id:
+                                    crypto.randomUUID(),
 
 
-updatedTabs.push(
-    newTab
-);
+                                title:
+
+                                    tab.title ||
+
+                                    "Untitled Tab",
 
 
-existingUrls.add(
-    tab.url
-);
+                                url:
+                                    tab.url,
 
 
-newTabsCount++;
+                                domain:
+                                    domain,
+
+
+                                favicon:
+
+                                    tab.favIconUrl ||
+
+                                    null,
+
+
+                                category:
+
+                                    getCategory(
+                                        domain
+                                    ),
+
+
+                                tags:
+                                    [],
+
+
+                                workspace:
+                                    null,
+
+
+                                starred:
+                                    false,
+
+
+                                createdAt:
+                                    now,
+
+
+                                lastOpened:
+                                    now,
+
+
+                                openCount:
+                                    1,
+
+
+                                keywords:
+                                    []
+
+                            };
+
+
+                            updatedTabs.push(
+                                newTab
+                            );
+
+
+                            newTabsCount++;
 
                         }
                     );
 
 
-                    // Neueste zuerst
+                    // ==================================================
+                    // SORTIEREN
+                    // ==================================================
+                    // Zuletzt aktualisierte Tabs zuerst
 
                     updatedTabs.sort(
                         (a, b) =>
 
                             new Date(
+                                b.lastOpened ||
                                 b.createdAt
                             )
 
                             -
 
                             new Date(
+                                a.lastOpened ||
                                 a.createdAt
                             )
                     );
 
 
-                    // UI sofort aktualisieren
+                    // ==================================================
+                    // UI SOFORT AKTUALISIEREN
+                    // ==================================================
 
                     allTabs =
                         updatedTabs;
@@ -459,7 +526,9 @@ newTabsCount++;
                     renderEverything();
 
 
-                    // In Storage speichern
+                    // ==================================================
+                    // STORAGE AKTUALISIEREN
+                    // ==================================================
 
                     chrome.storage.local.set(
                         {
@@ -477,36 +546,61 @@ newTabsCount++;
                                 chrome.runtime.lastError
                             ) {
 
+                                console.error(
+                                    chrome.runtime.lastError
+                                );
+
+
                                 statusElement.textContent =
                                     "Could not save tabs.";
+
 
                                 return;
 
                             }
 
 
+                            // ==================================================
+                            // STATUS MELDUNG
+                            // ==================================================
+
                             if (
-                                newTabsCount === 0
+                                newTabsCount === 0 &&
+                                updatedTabsCount === 0
                             ) {
 
                                 statusElement.textContent =
-                                    "All open tabs are already saved.";
+                                    "No tabs to save.";
 
                             }
 
                             else if (
-                                newTabsCount === 1
+                                newTabsCount === 0
                             ) {
 
                                 statusElement.textContent =
-                                    "1 new tab saved.";
+                                    `${updatedTabsCount} saved tabs updated.`;
+
+                            }
+
+                            else if (
+                                updatedTabsCount === 0
+                            ) {
+
+                                statusElement.textContent =
+
+                                    newTabsCount === 1
+
+                                        ? "1 new tab saved."
+
+                                        : `${newTabsCount} new tabs saved.`;
 
                             }
 
                             else {
 
                                 statusElement.textContent =
-                                    `${newTabsCount} new tabs saved.`;
+                                    `${newTabsCount} new, ${updatedTabsCount} updated.`;
 
                             }
 
@@ -600,6 +694,7 @@ function saveRetentionSettings() {
                 settingsStatus.textContent =
                     "Settings could not be saved.";
 
+
                 return;
 
             }
@@ -608,9 +703,6 @@ function saveRetentionSettings() {
             settingsStatus.textContent =
                 `Tabs will be deleted after ${days} days.`;
 
-
-            // Direkt prüfen,
-            // ob bereits alte Tabs entfernt werden müssen.
 
             chrome.runtime.sendMessage(
                 {
@@ -658,7 +750,9 @@ function toggleStar(tabId) {
 
 
     if (!tab) {
+
         return;
+
     }
 
 
@@ -695,8 +789,6 @@ function deleteSavedTab(tabId) {
 // ======================================================
 
 function saveTabsToStorage() {
-
-    // UI sofort aktualisieren
 
     renderEverything();
 
@@ -735,9 +827,6 @@ function switchView(view) {
         view;
 
 
-    // Kategorie-Filter löschen,
-    // wenn All Tabs verlassen wird.
-
     if (
         view !== "all"
     ) {
@@ -767,9 +856,6 @@ function switchView(view) {
             "hidden"
         );
 
-
-        // Suche zurücksetzen,
-        // wenn Home oder Settings geöffnet wird.
 
         searchInput.value =
             "";
@@ -916,7 +1002,9 @@ function getRelativeTime(
 ) {
 
     if (!dateString) {
+
         return "";
+
     }
 
 
@@ -1133,8 +1221,8 @@ function createTabCard(
 
         time.textContent =
             getRelativeTime(
-                tab.createdAt ||
-                tab.lastOpened
+                tab.lastOpened ||
+                tab.createdAt
             );
 
 
@@ -1251,7 +1339,9 @@ function createTabCard(
         () => {
 
             if (!tab.url) {
+
                 return;
+
             }
 
 
@@ -1518,15 +1608,15 @@ function renderEverything() {
                 (a, b) =>
 
                     new Date(
-                        b.createdAt ||
-                        b.lastOpened
+                        b.lastOpened ||
+                        b.createdAt
                     )
 
                     -
 
                     new Date(
-                        a.createdAt ||
-                        a.lastOpened
+                        a.lastOpened ||
+                        a.createdAt
                     )
             )
             .slice(
@@ -1630,10 +1720,14 @@ if (saveSettingsButton) {
 }
 
 
-saveRetentionSettingsButton.addEventListener(
-    "click",
-    saveRetentionSettings
-);
+if (saveRetentionSettingsButton) {
+
+    saveRetentionSettingsButton.addEventListener(
+        "click",
+        saveRetentionSettings
+    );
+
+}
 
 
 searchInput.addEventListener(
