@@ -68,9 +68,14 @@ const settingsStatus =
 
 const categoryIcons = {
     Development: "⌘",
+    Work: "▣",
     Education: "◈",
+    Research: "⌕",
+    Design: "✦",
+    Social: "◎",
     Entertainment: "▷",
     Shopping: "◇",
+    News: "≡",
     Uncategorized: "□"
 };
 
@@ -85,45 +90,181 @@ function getCategory(domain) {
         (domain || "").toLowerCase();
 
 
+    // ==================================================
+    // DEVELOPMENT
+    // ==================================================
+
     if (
         normalizedDomain.includes("github.com") ||
+        normalizedDomain.includes("gitlab.com") ||
+        normalizedDomain.includes("bitbucket.org") ||
         normalizedDomain.includes("stackoverflow.com") ||
         normalizedDomain.includes("developer.mozilla.org") ||
-        normalizedDomain.includes("npmjs.com")
+        normalizedDomain.includes("npmjs.com") ||
+        normalizedDomain.includes("codepen.io") ||
+        normalizedDomain.includes("codesandbox.io") ||
+        normalizedDomain.includes("vercel.com") ||
+        normalizedDomain.includes("netlify.com")
     ) {
         return "Development";
     }
 
 
+    // ==================================================
+    // WORK
+    // ==================================================
+
+    if (
+        normalizedDomain.includes("slack.com") ||
+        normalizedDomain.includes("notion.so") ||
+        normalizedDomain.includes("notion.site") ||
+        normalizedDomain.includes("jira.com") ||
+        normalizedDomain.includes("atlassian.net") ||
+        normalizedDomain.includes("asana.com") ||
+        normalizedDomain.includes("monday.com") ||
+        normalizedDomain.includes("trello.com") ||
+        normalizedDomain.includes("office.com") ||
+        normalizedDomain.includes("microsoft365.com") ||
+        normalizedDomain.includes("teams.microsoft.com") ||
+        normalizedDomain.includes("docs.google.com") ||
+        normalizedDomain.includes("drive.google.com") ||
+        normalizedDomain.includes("sheets.google.com") ||
+        normalizedDomain.includes("calendar.google.com")
+    ) {
+        return "Work";
+    }
+
+
+    // ==================================================
+    // EDUCATION
+    // ==================================================
+
     if (
         normalizedDomain.includes("moodle") ||
-        normalizedDomain.includes("wikipedia.org") ||
         normalizedDomain.includes("coursera.org") ||
         normalizedDomain.includes("udemy.com") ||
-        normalizedDomain.includes("edx.org")
+        normalizedDomain.includes("edx.org") ||
+        normalizedDomain.includes("khanacademy.org") ||
+        normalizedDomain.includes("codecademy.com") ||
+        normalizedDomain.includes("duolingo.com") ||
+        normalizedDomain.includes("skillshare.com")
     ) {
         return "Education";
     }
 
 
+    // ==================================================
+    // RESEARCH
+    // ==================================================
+
+    if (
+        normalizedDomain.includes("scholar.google.") ||
+        normalizedDomain.includes("arxiv.org") ||
+        normalizedDomain.includes("researchgate.net") ||
+        normalizedDomain.includes("pubmed.ncbi.nlm.nih.gov") ||
+        normalizedDomain.includes("ncbi.nlm.nih.gov") ||
+        normalizedDomain.includes("jstor.org") ||
+        normalizedDomain.includes("sciencedirect.com") ||
+        normalizedDomain.includes("springer.com") ||
+        normalizedDomain.includes("nature.com") ||
+        normalizedDomain.includes("wikipedia.org")
+    ) {
+        return "Research";
+    }
+
+
+    // ==================================================
+    // DESIGN
+    // ==================================================
+
+    if (
+        normalizedDomain.includes("figma.com") ||
+        normalizedDomain.includes("canva.com") ||
+        normalizedDomain.includes("behance.net") ||
+        normalizedDomain.includes("dribbble.com") ||
+        normalizedDomain.includes("adobe.com") ||
+        normalizedDomain.includes("framer.com") ||
+        normalizedDomain.includes("webflow.com")
+    ) {
+        return "Design";
+    }
+
+
+    // ==================================================
+    // SOCIAL
+    // ==================================================
+
+    if (
+        normalizedDomain.includes("linkedin.com") ||
+        normalizedDomain.includes("reddit.com") ||
+        normalizedDomain.includes("twitter.com") ||
+        normalizedDomain.includes("x.com") ||
+        normalizedDomain.includes("instagram.com") ||
+        normalizedDomain.includes("facebook.com") ||
+        normalizedDomain.includes("discord.com") ||
+        normalizedDomain.includes("threads.net")
+    ) {
+        return "Social";
+    }
+
+
+    // ==================================================
+    // ENTERTAINMENT
+    // ==================================================
+
     if (
         normalizedDomain.includes("youtube.com") ||
         normalizedDomain.includes("netflix.com") ||
         normalizedDomain.includes("spotify.com") ||
-        normalizedDomain.includes("twitch.tv")
+        normalizedDomain.includes("twitch.tv") ||
+        normalizedDomain.includes("disneyplus.com") ||
+        normalizedDomain.includes("primevideo.com") ||
+        normalizedDomain.includes("soundcloud.com")
     ) {
         return "Entertainment";
     }
 
 
+    // ==================================================
+    // SHOPPING
+    // ==================================================
+
     if (
         normalizedDomain.includes("amazon.") ||
         normalizedDomain.includes("ebay.") ||
-        normalizedDomain.includes("zalando.")
+        normalizedDomain.includes("zalando.") ||
+        normalizedDomain.includes("etsy.com") ||
+        normalizedDomain.includes("otto.de") ||
+        normalizedDomain.includes("mediamarkt.") ||
+        normalizedDomain.includes("saturn.")
     ) {
         return "Shopping";
     }
 
+
+    // ==================================================
+    // NEWS
+    // ==================================================
+
+    if (
+        normalizedDomain.includes("bbc.") ||
+        normalizedDomain.includes("cnn.com") ||
+        normalizedDomain.includes("nytimes.com") ||
+        normalizedDomain.includes("theguardian.com") ||
+        normalizedDomain.includes("reuters.com") ||
+        normalizedDomain.includes("spiegel.de") ||
+        normalizedDomain.includes("zeit.de") ||
+        normalizedDomain.includes("tagesschau.de") ||
+        normalizedDomain.includes("faz.net") ||
+        normalizedDomain.includes("sueddeutsche.de")
+    ) {
+        return "News";
+    }
+
+
+    // ==================================================
+    // FALLBACK
+    // ==================================================
 
     return "Uncategorized";
 }
