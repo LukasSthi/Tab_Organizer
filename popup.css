@@ -1,92 +1,791 @@
-body {
+/* ============================= */
+/* BASIC */
+/* ============================= */
 
-    font-family: Arial;
 
-    padding:20px;
+* {
 
-    width:300px;
+    box-sizing: border-box;
 
 }
 
+
+body {
+
+    margin: 0;
+
+    width: 380px;
+
+    min-height: 580px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #ffffff;
+
+    color: #222222;
+
+}
 
 
 button {
 
-    width:100%;
+    font-family: inherit;
 
-    padding:12px;
+}
 
-    font-size:16px;
 
-    cursor:pointer;
+.app {
+
+    min-height: 580px;
 
 }
 
 
 
-input {
+/* ============================= */
+/* HEADER */
+/* ============================= */
 
-    width:100%;
 
-    margin-top:15px;
+.header {
 
-    padding:8px;
+    height: 58px;
 
-    box-sizing:border-box;
+    padding:
+        0
+        16px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    border-bottom:
+        1px solid #e5e5e5;
+
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.brand-icon {
+
+    font-size: 20px;
+
+}
+
+
+.brand-name {
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+}
+
+
+.save-button {
+
+    padding:
+        8px
+        12px;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 7px;
+
+    background:
+        #ffffff;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+}
+
+
+.save-button:hover {
+
+    background:
+        #f5f5f5;
 
 }
 
 
 
-#status {
+/* ============================= */
+/* CONTENT */
+/* ============================= */
 
-    margin-top:15px;
+
+.content {
+
+    padding:
+        14px
+        14px
+        80px;
 
 }
 
 
 
-#tabList {
+/* ============================= */
+/* SEARCH */
+/* ============================= */
 
-    margin-top:15px;
+
+.search-row {
+
+    display: flex;
+
+    gap: 8px;
 
 }
 
+
+.search-box {
+
+    flex: 1;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        0
+        12px;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 7px;
+
+}
+
+
+.search-icon {
+
+    color: #777777;
+
+}
+
+
+.search-box input {
+
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    font-size: 13px;
+
+}
+
+
+.filter-button {
+
+    width: 40px;
+
+    height: 40px;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 7px;
+
+    background:
+        #ffffff;
+
+    cursor: pointer;
+
+}
+
+
+.filter-button:hover {
+
+    background:
+        #f5f5f5;
+
+}
+
+
+
+/* ============================= */
+/* STATUS */
+/* ============================= */
+
+
+.status {
+
+    min-height: 20px;
+
+    padding-top: 6px;
+
+    font-size: 11px;
+
+    color: #777777;
+
+}
+
+
+
+/* ============================= */
+/* VIEWS */
+/* ============================= */
+
+
+.view {
+
+    display: none;
+
+}
+
+
+.view.active {
+
+    display: block;
+
+}
+
+
+
+/* ============================= */
+/* SECTION HEADER */
+/* ============================= */
+
+
+.section-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    margin-top: 14px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.section-header h2 {
+
+    margin: 0;
+
+    font-size: 13px;
+
+}
+
+
+.see-all {
+
+    border: none;
+
+    background: none;
+
+    color: #2468a2;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+}
+
+
+.count {
+
+    color: #777777;
+
+    font-size: 11px;
+
+}
+
+
+
+/* ============================= */
+/* CATEGORIES */
+/* ============================= */
+
+
+.category-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 8px;
+
+}
+
+
+.category-card {
+
+    min-height: 42px;
+
+    padding:
+        9px
+        10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 7px;
+
+    background:
+        #ffffff;
+
+    cursor: pointer;
+
+}
+
+
+.category-card:hover {
+
+    background:
+        #f7f7f7;
+
+}
+
+
+.category-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+.category-name {
+
+    font-size: 12px;
+
+}
+
+
+.category-count {
+
+    font-size: 11px;
+
+    color: #777777;
+
+}
+
+
+
+/* ============================= */
+/* TAB LIST */
+/* ============================= */
+
+
+.tab-list {
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 7px;
+
+    overflow: hidden;
+
+}
 
 
 .tab-card {
 
+    min-height: 58px;
 
-    border:1px solid #ddd;
+    padding:
+        8px
+        9px;
 
-    border-radius:8px;
+    display: flex;
 
-    padding:10px;
+    align-items: center;
 
-    margin-bottom:10px;
+    gap: 10px;
 
-    cursor:pointer;
+    border-bottom:
+        1px solid #eeeeee;
+
+    background:
+        #ffffff;
+
+    cursor: pointer;
 
 }
 
+
+.tab-card:last-child {
+
+    border-bottom: none;
+
+}
 
 
 .tab-card:hover {
 
-
-    background:#f5f5f5;
-
+    background:
+        #f7f7f7;
 
 }
 
-h3{
 
-    margin-top:20px;
 
-    margin-bottom:10px;
+/* ============================= */
+/* FAVICON */
+/* ============================= */
 
-    font-size:15px;
 
-    color:#444;
+.favicon {
+
+    width: 34px;
+
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 5px;
+
+    background:
+        #fafafa;
+
+}
+
+
+.favicon img {
+
+    width: 18px;
+
+    height: 18px;
+
+}
+
+
+
+/* ============================= */
+/* TAB INFO */
+/* ============================= */
+
+
+.tab-info {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.tab-title {
+
+    overflow: hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space: nowrap;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+.tab-domain {
+
+    margin-top: 3px;
+
+    overflow: hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space: nowrap;
+
+    font-size: 10px;
+
+    color: #777777;
+
+}
+
+
+
+/* ============================= */
+/* TAB ACTIONS */
+/* ============================= */
+
+
+.tab-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 3px;
+
+}
+
+
+.tab-time {
+
+    margin-right: 4px;
+
+    font-size: 10px;
+
+    color: #888888;
+
+    white-space: nowrap;
+
+}
+
+
+.star-button,
+.delete-button {
+
+    width: 26px;
+
+    height: 26px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background:
+        transparent;
+
+    cursor: pointer;
+
+}
+
+
+.star-button {
+
+    font-size: 17px;
+
+}
+
+
+.delete-button {
+
+    font-size: 15px;
+
+    color: #888888;
+
+}
+
+
+.star-button:hover,
+.delete-button:hover {
+
+    background:
+        #eeeeee;
+
+}
+
+
+
+/* ============================= */
+/* EMPTY STATE */
+/* ============================= */
+
+
+.empty-state {
+
+    padding: 20px;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    color: #888888;
+
+}
+
+
+
+/* ============================= */
+/* SETTINGS */
+/* ============================= */
+
+
+.settings-card {
+
+    margin-top: 14px;
+
+    padding: 18px;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 8px;
+
+}
+
+
+.settings-card h2 {
+
+    margin-top: 0;
+
+    font-size: 16px;
+
+}
+
+
+.settings-card p {
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    color: #666666;
+
+}
+
+
+.primary-button {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 11px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background:
+        #222222;
+
+    color:
+        #ffffff;
+
+    cursor: pointer;
+
+}
+
+
+
+/* ============================= */
+/* BOTTOM NAVIGATION */
+/* ============================= */
+
+
+.bottom-navigation {
+
+    position: fixed;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    width: 380px;
+
+    height: 64px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    border-top:
+        1px solid #dddddd;
+
+    background:
+        #ffffff;
+
+}
+
+
+.nav-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 4px;
+
+    border: none;
+
+    background:
+        transparent;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+}
+
+
+.nav-icon {
+
+    font-size: 18px;
+
+}
+
+
+.nav-item:hover {
+
+    background:
+        #f7f7f7;
+
+}
+
+
+.nav-item.active {
+
+    background:
+        #f3f3f3;
+
+    font-weight: 600;
 
 }

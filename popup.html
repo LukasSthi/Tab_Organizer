@@ -1,44 +1,435 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="de">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <title>Smart Tab Organizer</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="popup.css">
+    <title>TabBuddy</title>
+
+    <link
+        rel="stylesheet"
+        href="popup.css"
+    >
 
 </head>
 
+
 <body>
 
-<h1>Smart Tab Organizer</h1>
+
+<div class="app">
 
 
-<button id="saveTabs">
-    💾 Save current tabs
-</button>
+    <!-- ============================= -->
+    <!-- HEADER -->
+    <!-- ============================= -->
+
+    <header class="header">
 
 
-<input 
-    id="search"
-    type="text"
-    placeholder="🔍 Search tabs..."
->
+        <div class="brand">
+
+            <span class="brand-icon">
+                ▣
+            </span>
+
+            <span class="brand-name">
+                TabBuddy
+            </span>
+
+        </div>
 
 
-<div id="status"></div>
+        <button
+            id="saveTabs"
+            class="save-button"
+            title="Aktuelle Tabs speichern"
+        >
+
+            Save Tabs
+
+        </button>
 
 
-<h2>Saved Tabs</h2>
+    </header>
 
 
-<div id="tabList"></div>
+
+    <!-- ============================= -->
+    <!-- CONTENT -->
+    <!-- ============================= -->
+
+    <main class="content">
+
+
+        <!-- SEARCH -->
+
+
+        <div class="search-row">
+
+
+            <div class="search-box">
+
+                <span class="search-icon">
+                    ⌕
+                </span>
+
+
+                <input
+                    id="search"
+                    type="text"
+                    placeholder="Search your tabs..."
+                >
+
+
+            </div>
+
+
+            <button
+                class="filter-button"
+                title="Filter"
+            >
+
+                ☷
+
+            </button>
+
+
+        </div>
+
+
+
+        <div
+            id="status"
+            class="status"
+        ></div>
+
+
+
+        <!-- ============================= -->
+        <!-- HOME VIEW -->
+        <!-- ============================= -->
+
+
+        <section
+            id="homeView"
+            class="view active"
+        >
+
+
+            <!-- CATEGORIES -->
+
+
+            <div class="section-header">
+
+
+                <h2>
+                    Categories
+                </h2>
+
+
+                <button
+                    class="see-all"
+                    data-view-target="all"
+                >
+
+                    See all
+
+                </button>
+
+
+            </div>
+
+
+
+            <div
+                id="categoryGrid"
+                class="category-grid"
+            ></div>
+
+
+
+            <!-- RECENT TABS -->
+
+
+            <div class="section-header">
+
+
+                <h2>
+                    Recent Tabs
+                </h2>
+
+
+                <button
+                    class="see-all"
+                    data-view-target="all"
+                >
+
+                    See all
+
+                </button>
+
+
+            </div>
+
+
+
+            <div
+                id="recentTabs"
+                class="tab-list"
+            ></div>
+
+
+
+            <!-- IMPORTANT TABS -->
+
+
+            <div class="section-header">
+
+
+                <h2>
+                    Important Tabs
+                </h2>
+
+
+                <button
+                    class="see-all"
+                    data-view-target="starred"
+                >
+
+                    See all
+
+                </button>
+
+
+            </div>
+
+
+
+            <div
+                id="importantTabs"
+                class="tab-list"
+            ></div>
+
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- ALL TABS VIEW -->
+        <!-- ============================= -->
+
+
+        <section
+            id="allView"
+            class="view"
+        >
+
+
+            <div class="section-header">
+
+
+                <h2>
+                    All Tabs
+                </h2>
+
+
+                <span
+                    id="allCount"
+                    class="count"
+                ></span>
+
+
+            </div>
+
+
+            <div
+                id="allTabs"
+                class="tab-list"
+            ></div>
+
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- STARRED VIEW -->
+        <!-- ============================= -->
+
+
+        <section
+            id="starredView"
+            class="view"
+        >
+
+
+            <div class="section-header">
+
+
+                <h2>
+                    Starred
+                </h2>
+
+
+                <span
+                    id="starredCount"
+                    class="count"
+                ></span>
+
+
+            </div>
+
+
+            <div
+                id="starredTabs"
+                class="tab-list"
+            ></div>
+
+
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!-- SETTINGS VIEW -->
+        <!-- ============================= -->
+
+
+        <section
+            id="settingsView"
+            class="view"
+        >
+
+
+            <div class="settings-card">
+
+
+                <h2>
+                    Settings
+                </h2>
+
+
+                <p>
+
+                    Tabs werden nur gespeichert,
+                    wenn du manuell auf
+                    „Save Tabs“ klickst.
+
+                </p>
+
+
+                <button
+                    id="saveTabsSettings"
+                    class="primary-button"
+                >
+
+                    Save current tabs
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ============================= -->
+    <!-- BOTTOM NAVIGATION -->
+    <!-- ============================= -->
+
+
+    <nav class="bottom-navigation">
+
+
+        <button
+            class="nav-item active"
+            data-view="home"
+        >
+
+            <span class="nav-icon">
+                ⌂
+            </span>
+
+            <span>
+                Home
+            </span>
+
+        </button>
+
+
+
+        <button
+            class="nav-item"
+            data-view="all"
+        >
+
+            <span class="nav-icon">
+                ☷
+            </span>
+
+            <span>
+                All Tabs
+            </span>
+
+        </button>
+
+
+
+        <button
+            class="nav-item"
+            data-view="starred"
+        >
+
+            <span class="nav-icon">
+                ☆
+            </span>
+
+            <span>
+                Starred
+            </span>
+
+        </button>
+
+
+
+        <button
+            class="nav-item"
+            data-view="settings"
+        >
+
+            <span class="nav-icon">
+                ⚙
+            </span>
+
+            <span>
+                Settings
+            </span>
+
+        </button>
+
+
+    </nav>
+
+
+</div>
 
 
 <script src="popup.js"></script>
+
 
 </body>
 
