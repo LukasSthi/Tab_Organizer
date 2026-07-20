@@ -1,3 +1,5 @@
+# Chat Link
+https://chatgpt.com/share/6a5d5941-5cbc-83eb-8b9a-b2d0b19ed958
 # Project Title
 Ariad – Intelligent Tab Manager
 
